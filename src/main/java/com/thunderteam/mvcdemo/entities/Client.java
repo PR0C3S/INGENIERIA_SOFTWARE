@@ -1,6 +1,5 @@
 package com.thunderteam.mvcdemo.entities;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
@@ -16,8 +15,8 @@ public class Client {
     }
 
     @Id
-    @NotNull
-    private String ID_Cliente;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int ID_Cliente;
 
     @Column(nullable = false)
     private String primer_Nombre;

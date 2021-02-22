@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class CuentaBancaria {
 
     @Id
-    private String numero_Cuenta;
+    private int numero_Cuenta;
 
     @Column(nullable = false)
     private String nombre_Banco;
