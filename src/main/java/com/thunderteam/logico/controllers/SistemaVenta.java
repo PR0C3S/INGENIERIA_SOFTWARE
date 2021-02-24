@@ -1,6 +1,8 @@
-package com.thunderteam.logico; //hay que importar las mismas librerias en todos los archivos o se puede generalizar de alguna manera?
+package com.thunderteam.logico.controllers; //hay que importar las mismas librerias en todos los archivos o se puede generalizar de alguna manera?
+import com.thunderteam.logico.entities.*;
 import lombok.Data;
-import java.util.Date;
+
+import java.util.ArrayList;
 
 @Data
 public class SistemaVenta{

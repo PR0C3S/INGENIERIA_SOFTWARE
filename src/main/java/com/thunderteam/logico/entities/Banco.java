@@ -1,4 +1,4 @@
-package com.thunderteam.logico;
+package com.thunderteam.logico.entities;
 import lombok.Data;
 
 @Data

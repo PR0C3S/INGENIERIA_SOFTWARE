@@ -1,4 +1,4 @@
-package com.thunderteam.mvcdemo.entities;
+package com.thunderteam.logico.entities;
 
 import lombok.Data;
 import javax.persistence.*;
@@ -7,8 +7,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "Clients")
-public class Client {
+@Table(name = "Clientes")
+public class Cliente {
 
     public enum Sexo{
         M, F

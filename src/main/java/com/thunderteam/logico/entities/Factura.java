@@ -1,7 +1,6 @@
-package com.thunderteam.mvcdemo.entities;
+package com.thunderteam.logico.entities;
 
 import java.util.Date;
-import com.thunderteam.logico.*;
 
 public class Factura {
 
