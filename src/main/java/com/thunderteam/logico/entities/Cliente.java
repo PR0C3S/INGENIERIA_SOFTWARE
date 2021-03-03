@@ -1,6 +1,5 @@
-package com.thunderteam.mvcdemo.entities;
+package com.thunderteam.logico.entities;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
@@ -8,16 +7,16 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "Clients")
-public class Client {
+@Table(name = "Clientes")
+public class Cliente {
 
     public enum Sexo{
         M, F
     }
 
     @Id
-    @NotNull
-    private String ID_Cliente;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int ID_Cliente;
 
     @Column(nullable = false)
     private String primer_Nombre;
