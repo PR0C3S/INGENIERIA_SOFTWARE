@@ -3,6 +3,7 @@ package com.thunderteam.logico.entities;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -46,5 +47,14 @@ public class Cliente {
     @Column(nullable = false)
     private Date fecha_Nacimiento;
 
+    //relacion con ubicacion
+    @ManyToOne
+    @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
+    private Ubicacion ubicacion;
+
+
+    //relacion con contrato
+    @OneToMany(mappedBy = "cliente")
+    private List<Contrato> contrato;
 
 }

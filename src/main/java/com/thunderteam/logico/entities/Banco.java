@@ -1,11 +1,25 @@
 package com.thunderteam.logico.entities;
 import lombok.Data;
+import org.hibernate.annotations.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
+@Entity
+@Table(name = "Bancos")
 public class Banco{
-    private String nombre ;
+
+    @Id
+    private String nombre_Banco ;
+
+    @Column(nullable = false)
     private String email;
-    private String telefono;
-    private ArrayList<int> cuotas;
-    private ArrayList<float> intereses;
+
+    //relacion con cuenta bancaria
+    @OneToMany(mappedBy = "banco")
+    private List<CuentaBancaria> cuentaBancaria;
+
+    //relacion con cuotas
+    @OneToMany(mappedBy = "banco")
+    private List<CuentaBancaria> cuotasBancaria;
 }
