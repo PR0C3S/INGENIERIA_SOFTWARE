@@ -11,7 +11,7 @@ public class SistemaVenta{
     private ArrayList<Contrato> contratos;
     private ArrayList<Factura> facturas;
     private ArrayList<Banco> bancos;
-    private ArrayList<Anuncio> anuncios;
+	/* private ArrayList<Anuncio> anuncios; */
     private ArrayList<Cliente> clientes;
     private Ubicacion ubicacion;
 
@@ -26,9 +26,7 @@ public class SistemaVenta{
     }
     public void modificarCuenta(){
     }  
-    public Usuario comprarPublicacion(){ //wtf is this
-        //return Usuario
-    }
+
     public void buscarDealerPor_ID(){//  ? esta funcion iria en una clase que contenga esta, habria que cambiar los nombres(esta se llamaria Dealer y la contenedora (que tiene una lista de dealers) SistemaVenta), o mejor dejar que el sistema sea un solo dealer.
         //return Dealer
     }

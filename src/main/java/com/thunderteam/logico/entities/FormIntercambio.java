@@ -1,8 +1,6 @@
 package com.thunderteam.logico.entities;
 
 import lombok.Data;
-import org.hibernate.annotations.Table;
-
 import javax.persistence.*;
 
 @Data

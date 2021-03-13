@@ -1,6 +1,5 @@
 package com.thunderteam.logico.entities;
 import lombok.Data;
-import org.hibernate.annotations.Table;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Facturas")
-
 public class Factura{
 
     @Id

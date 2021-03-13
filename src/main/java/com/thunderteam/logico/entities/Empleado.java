@@ -1,13 +1,17 @@
 package com.thunderteam.logico.entities;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Data 
+@AllArgsConstructor 
+@NoArgsConstructor
 @Entity
-@Table(name = "Empleados")
+@Table
 public class Empleado {
 
     public enum Sexo{

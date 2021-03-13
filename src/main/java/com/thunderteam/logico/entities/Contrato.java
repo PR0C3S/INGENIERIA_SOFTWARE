@@ -67,11 +67,11 @@ public class Contrato {
 
     //relacion con anuncio
     @ManyToOne
-    @JoinColumn(name="anuncio", referencedColumnName="ID_Anuncio")
-    private Anuncio anuncio;
+    @JoinColumn(name="vehiculo", referencedColumnName="ID_Vehiculo", nullable=false)
+    private Vehiculo vehiculo;
 
     //relacion con vehiculo_cliente
     @OneToOne
-    private Vehiculo vehiculo;
+    private Vehiculo vehiculoCliente;
 
 }
