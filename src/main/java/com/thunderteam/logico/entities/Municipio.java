@@ -1,31 +1,31 @@
 package com.thunderteam.logico.entities;
 import lombok.Data;
 import org.hibernate.annotations.Table;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Ubicaciones")
-public class Ubicacion {
+@Table(name = "Municipios")
 
+public class Municipio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Ubicacion;
+    private int ID_Municipio;
 
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
-    private String calle;
 
-    @Column(nullable = false)
-    private String casa;
+    //relacion con provincia
+    @ManyToOne
+    @JoinColumn(name = "ID_Provincia", nullable = false)
+    private Provincia provincia;
 
     //relacion con sector
-    @ManyToOne
-    @JoinColumn(name = "ID_Sector", nullable = false)
-    private Sector sector;
+    @OneToMany(mappedBy = "municipio")
+    private List<Sector> sector;
+
+
 
 }

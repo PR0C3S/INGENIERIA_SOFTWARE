@@ -1,11 +1,31 @@
 package com.thunderteam.logico.entities;
-
+import lombok.Data;
+import org.hibernate.annotations.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
-public class Factura {
+@Data
+@Entity
+@Table(name = "Facturas")
 
+public class Factura{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID_Factura;
-    private Banco contrato;
+
+    @Column(nullable = false)
     private Date fecha;
-    private float pago;
+
+    @Column(nullable = false)
+    private float monto;
+
+
+    //relacion con contrato
+    @ManyToOne
+    @JoinColumn(name="ID_Contrato", nullable=false)
+    private Contrato contrato;
+
+
 }
