@@ -26,10 +26,10 @@ public class Formulario {
     private String comentario;
 
 
-    //relacion con anuncio unidireccional
+    //relacion con vehiculo unidireccional
     @ManyToOne
-    @JoinColumn(name="anuncio", referencedColumnName="ID_Anuncio")
-    private Anuncio anuncio;
+    @JoinColumn(name="vehiculo", referencedColumnName="ID_Vehiculo")
+    private Vehiculo vehiculo;
 
 
 }
