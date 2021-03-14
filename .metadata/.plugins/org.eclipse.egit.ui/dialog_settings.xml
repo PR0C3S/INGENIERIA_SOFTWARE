@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item key="GitSelectRepositoryPage.lastRepository" value="D:\WorkSpaces\Shared_repos\INGENIERIA_SOFTWARE\.git"/>
+	<item value="1" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<item value="D:\WorkSpaces\Shared_repos\INGENIERIA_SOFTWARE\.git" key="GitSelectRepositoryPage.lastRepository"/>
 	<section name="GitImportWizard">
+		<item value="true" key="GitProjectsImportPage.STORE_NESTED_PROJECTS"/>
 	</section>
 </section>

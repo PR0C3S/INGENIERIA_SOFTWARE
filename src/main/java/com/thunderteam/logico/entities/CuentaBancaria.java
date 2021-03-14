@@ -13,8 +13,8 @@ public class CuentaBancaria {
     @Id
     private int numero_Cuenta;
 
-    @Column(nullable = false)
-    private String nombre_Banco;
+/*    @Column(nullable = false)
+    private String nombre_Banco;*/
 
     @Column(nullable = false)
     private String tipo_Cuenta;

@@ -51,24 +51,24 @@ public class Empleado {
     @Column
     private String telefono;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String cedula;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String celular;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('M','F')")
     private Sexo sexo;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_Creacion;
 
 
     //relacion con ubicacion
-    @ManyToOne
+/*    @ManyToOne
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
-    private Ubicacion ubicacion;
+    private Ubicacion ubicacion;*/
 
 
     //relacion con Cuenta Bancaria
