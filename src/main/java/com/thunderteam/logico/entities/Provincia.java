@@ -6,7 +6,6 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Provincias")
-
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
