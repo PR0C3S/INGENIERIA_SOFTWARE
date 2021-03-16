@@ -22,7 +22,7 @@ public class MarcaVehiculoController {
     @GetMapping("/marca")
     public ResponseEntity getMarca(@RequestParam String nombreMarca){ return marcaService.getMarca(nombreMarca); }
     @PostMapping("/marca")
-    public ResponseEntity postMarca(@RequestParam String nombre_Marca){ return marcaService.postMarca(nombre_Marca); }
+    public ResponseEntity postMarca(@RequestParam String nombreMarca){ return marcaService.postMarca(nombreMarca); }
     @DeleteMapping("/marca")
-    public ResponseEntity deleteMarca(@RequestParam String nombre_Marca){ return marcaService.eliminarMarca(nombre_Marca); }
+    public ResponseEntity deleteMarca(@RequestParam String nombreMarca){ return marcaService.eliminarMarca(nombreMarca); }
 }

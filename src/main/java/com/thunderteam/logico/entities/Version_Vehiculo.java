@@ -1,4 +1,5 @@
 package com.thunderteam.logico.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Version_Vehiculo {
     private int ID_Version;
 
     @Column(nullable = false)
-    private String nombre_Version;
+    private String nombreVersion;
 
     @Column(nullable = false)
     private String color_Exterior;
@@ -59,9 +60,10 @@ public class Version_Vehiculo {
     //relacion con Modelo_vehiculo
     @ManyToOne
     @JoinColumn(name = "ID_Modelo", nullable = false)
-    private Modelo_Vehiculo modelo_vehiculo;
+    private Modelo_Vehiculo modeloVehiculo;
 
     //relacion con Vehiculo
     @OneToMany(mappedBy = "version_vehiculo")
+    @JsonIgnore
     private List<Vehiculo> vehiculo;
 }

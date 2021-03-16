@@ -1,4 +1,5 @@
 package com.thunderteam.logico.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -16,13 +17,14 @@ public class Tipo_Vehiculo {
     private int ID_Tipo;
 
     @Column(nullable = false)
-    private String nombre_Tipo;
+    private String nombreTipo;
 
     //relacion con modelo_Vehiculo
-    @OneToMany(mappedBy = "tipo_vehiculo")
+    @OneToMany(mappedBy = "tipovehiculo")
+    @JsonIgnore
     private List<Modelo_Vehiculo> modelo_vehiculo;
 
     public Tipo_Vehiculo(String nombre_Tipo) {
-        this.nombre_Tipo = nombre_Tipo;
+        this.nombreTipo = nombre_Tipo;
     }
 }

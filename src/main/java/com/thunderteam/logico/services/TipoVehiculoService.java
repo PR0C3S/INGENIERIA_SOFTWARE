@@ -3,6 +3,7 @@ package com.thunderteam.logico.services;
 import com.thunderteam.logico.entities.Marca_Vehiculo;
 import com.thunderteam.logico.entities.Tipo_Vehiculo;
 import com.thunderteam.logico.repositorios.TipoVehiculoRepo;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TipoVehiculoService {
 
     private final TipoVehiculoRepo tipoRepo;
@@ -22,7 +23,7 @@ public class TipoVehiculoService {
 
     public ResponseEntity getTipo(String nombreTipo){
         Map<String, String> response = new HashMap<>();
-        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombre_Tipo(nombreTipo);
+        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombreTipo(nombreTipo);
 
         if (tipo.isEmpty()){
             response.put("found", "false");
@@ -34,7 +35,7 @@ public class TipoVehiculoService {
 
     public ResponseEntity postTipo(String nombreTipo){
         Map<String, String> response = new HashMap<>();
-        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombre_Tipo(nombreTipo);
+        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombreTipo(nombreTipo);
 
         if (tipo.isPresent()){
             response.put("Created", "false");
@@ -48,16 +49,16 @@ public class TipoVehiculoService {
 
     public ResponseEntity eliminarTipo(String nombreTipo){
         Map<String, String> response = new HashMap<>();
-        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombre_Tipo(nombreTipo);
+        Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombreTipo(nombreTipo);
 
         if(tipo.isEmpty()){
             response.put("deleted", "false");
-            response.put("message", "Marca no encontrada");
+            response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
         }else{
             tipoRepo.delete(tipo.get());
             response.put("deleted", "true");
-            response.put("message", "Tipo \""+nombreTipo+"\" eliminada");
+            response.put("message", "Tipo "+nombreTipo+" eliminado");
             return ResponseEntity.ok().body(response);
         }
 

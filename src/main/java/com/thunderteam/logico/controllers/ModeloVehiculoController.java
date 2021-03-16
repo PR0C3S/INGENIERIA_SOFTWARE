@@ -18,28 +18,28 @@ public class ModeloVehiculoController {
     @GetMapping("/")
     public List<Modelo_Vehiculo> getAllModelos(){return modeloService.getAll();}
     @GetMapping("/marca")
-    public ResponseEntity getAllByMarca(String marca){
+    public ResponseEntity getAllByMarca(@RequestParam String marca){
         return  modeloService.getAllByMarca(marca);
     }
     @GetMapping("/tipo")
-    public ResponseEntity getAllByTipo(String tipo){
+    public ResponseEntity getAllByTipo(@RequestParam String tipo){
         return modeloService.getAllByTipo(tipo);
     }
     @GetMapping("/tipomarca")
-    public ResponseEntity getAllByTipoAndMarca(String tipo, String marca){
+    public ResponseEntity getAllByTipoAndMarca(@RequestParam String tipo, @RequestParam String marca){
         return modeloService.getAllByTipoAndMarca(tipo, marca);
     }
     @GetMapping("/modelo")
-    public ResponseEntity getModelo(String nombreModelo){
+    public ResponseEntity getModelo(@RequestParam String nombreModelo){
         return modeloService.getModelo(nombreModelo);
     }
     @PostMapping("/modelo")
-    public ResponseEntity postModelo(String nombre_Modelo, int year,
-                                     String tipo, String marca){
-        return modeloService.postModelo(nombre_Modelo,year,tipo,marca);
+    public ResponseEntity postModelo(@RequestParam String nombreModelo, @RequestParam int year,
+                                     @RequestParam String tipo, @RequestParam String marca){
+        return modeloService.postModelo(nombreModelo,year,tipo,marca);
     }
     @DeleteMapping("/modelo")
-    public ResponseEntity deleteModelo(String nombreModelo){
+    public ResponseEntity deleteModelo(@RequestParam String nombreModelo){
        return modeloService.deleteModelo(nombreModelo);
     }
 

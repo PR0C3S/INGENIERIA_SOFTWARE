@@ -2,6 +2,7 @@ package com.thunderteam.logico.services;
 
 import com.thunderteam.logico.entities.Marca_Vehiculo;
 import com.thunderteam.logico.repositorios.MarcaVehiculoRepo;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MarcaVehiculoService {
 
     private final MarcaVehiculoRepo marcaRepo;
@@ -26,7 +27,7 @@ public class MarcaVehiculoService {
     // Buscar una marca por su nombre
     public ResponseEntity getMarca(String nombreMarca) {
         Map<String, String> response = new HashMap<>();
-        Optional<Marca_Vehiculo> marca = marcaRepo.findMarca_VehiculoByNombreMarca(nombreMarca);
+        Optional<Marca_Vehiculo> marca = marcaRepo.findByNombreMarca(nombreMarca);
 
         if (marca.isEmpty()){
             response.put("found", "false");
@@ -39,7 +40,7 @@ public class MarcaVehiculoService {
     // Guardar una marca
     public ResponseEntity postMarca(String nombreMarca){
         Map<String, String> response = new HashMap<>();
-        Optional<Marca_Vehiculo> marca = marcaRepo.findMarca_VehiculoByNombreMarca(nombreMarca);
+        Optional<Marca_Vehiculo> marca = marcaRepo.findByNombreMarca(nombreMarca);
 
         if (marca.isPresent()){
             response.put("Created", "false");
@@ -54,7 +55,7 @@ public class MarcaVehiculoService {
     // Eliminar una marca
     public ResponseEntity eliminarMarca(String nombreMarca){
         Map<String, String> response = new HashMap<>();
-        Optional<Marca_Vehiculo> marca = marcaRepo.findMarca_VehiculoByNombreMarca(nombreMarca);
+        Optional<Marca_Vehiculo> marca = marcaRepo.findByNombreMarca(nombreMarca);
 
         if(marca.isEmpty()){
             response.put("deleted", "false");
@@ -63,7 +64,7 @@ public class MarcaVehiculoService {
         }else{
             marcaRepo.delete(marca.get());
             response.put("deleted", "true");
-            response.put("message", "Marca \""+nombreMarca+"\" eliminada");
+            response.put("message", "Marca "+nombreMarca+" eliminada");
             return ResponseEntity.ok().body(response);
         }
 

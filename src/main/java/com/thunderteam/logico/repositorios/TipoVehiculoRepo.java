@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface TipoVehiculoRepo extends JpaRepository<Tipo_Vehiculo, Integer> {
 
-    Optional<Tipo_Vehiculo> findTipo_VehiculoByNombre_Tipo(String tipo);
+    Optional<Tipo_Vehiculo> findTipo_VehiculoByNombreTipo(String tipo);
 }
