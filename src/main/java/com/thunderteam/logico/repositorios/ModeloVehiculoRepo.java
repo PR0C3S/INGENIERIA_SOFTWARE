@@ -9,8 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ModeloVehiculoRepo extends JpaRepository<Modelo_Vehiculo, Integer> {
-    List<Modelo_Vehiculo> findModelo_VehiculosByMarcavehiculo(Marca_Vehiculo marca);
-    List<Modelo_Vehiculo> findModelo_VehiculosByTipovehiculo(Tipo_Vehiculo tipo);
-    List<Modelo_Vehiculo> findModelo_VehiculosByMarcavehiculoAndTipovehiculo(Marca_Vehiculo marca, Tipo_Vehiculo tipo);
+
+    // Encontrar todos los modelos de una marca
+    List<Modelo_Vehiculo> findAllByMarcavehiculo_NombreMarca(String marca);
+
+    // Encontrar todos los modelos de un tipo
+    List<Modelo_Vehiculo> findAllByTipovehiculo_NombreTipo(String tipo);
+
+    // Encontrar todos los modelos de un tipo y marca
+    List<Modelo_Vehiculo> findAllByMarcavehiculo_NombreMarcaAndTipovehiculo_NombreTipo(String marca, String tipo);
+
+    // Encontrar un modelo por su nombre
     Optional<Modelo_Vehiculo> findByNombreModelo(String nombreModelo);
+
+    boolean existsByNombreModelo(String modelo);
 }
