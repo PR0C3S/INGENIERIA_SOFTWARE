@@ -2,7 +2,6 @@ package com.thunderteam.logico.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -37,16 +36,7 @@ public class Empleado {
     private Tipo tipo; //Gerente, Vendedor o Secretaria
 
     @Column(nullable = false)
-    private String primer_Nombre;
-
-    @Column
-    private String segundo_Nombre;
-
-    @Column(nullable = false)
-    private String primer_Apellido;
-
-    @Column
-    private String segundo_Apellido;
+    private String nombre_Completo;
 
     @Column
     private String telefono;
@@ -62,13 +52,12 @@ public class Empleado {
     private Sexo sexo;
 
     @Column(nullable = true)
-    private Date fecha_Creacion;
-
+    private Date fecha_Creacion= new Date();
 
     //relacion con ubicacion
-/*    @ManyToOne
+    @ManyToOne
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
-    private Ubicacion ubicacion;*/
+    private Ubicacion ubicacion;
 
 
     //relacion con Cuenta Bancaria

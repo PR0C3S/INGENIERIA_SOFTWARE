@@ -20,19 +20,13 @@ public class Cliente {
     private int ID_Cliente;
 
     @Column(nullable = false)
-    private String primer_Nombre;
-
-    @Column
-    private String segundo_Nombre;
-
-    @Column(nullable = false)
-    private String primer_Apellido;
-
-    @Column
-    private String segundo_Apellido;
+    private String nombre_Completo;
 
     @Column
     private String telefono;
+
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String celular;

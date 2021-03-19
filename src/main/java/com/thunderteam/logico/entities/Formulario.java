@@ -20,7 +20,7 @@ public class Formulario {
     private String celular;
 
     @Column(nullable = false)
-    private Date fecha;
+    private Date fecha = new Date();
 
     @Column(nullable = false)
     private String comentario;

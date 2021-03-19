@@ -1,8 +1,9 @@
 package com.thunderteam.logico.entities;
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -14,7 +15,10 @@ public class Factura{
     private int ID_Factura;
 
     @Column(nullable = false)
-    private Date fecha;
+    private Date fecha= new Date();
+
+    @Column(nullable = false)
+    private String nombre_Persona_Pago;
 
     @Column(nullable = false)
     private float monto;
@@ -24,6 +28,7 @@ public class Factura{
     @ManyToOne
     @JoinColumn(name="ID_Contrato", nullable=false)
     private Contrato contrato;
+
 
 
 }

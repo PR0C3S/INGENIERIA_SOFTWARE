@@ -1,49 +1,113 @@
 package com.thunderteam.logico.controllers;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.EmpleadoRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EmpleadoController {
 	
 	@Autowired
-	EmpleadoRepo repo;
-	
-	@RequestMapping("/empleados")
-	public Iterable<Empleado> getAllEmpleados() {
-/*		List<Empleado> lstEmpleados = Arrays.asList(
-				new Empleado()
-				);*/
-		return repo.findAll();
+	EmpleadoRepo empleadoRepo;
+
+	@GetMapping("/")
+	public List<Empleado> getAllEmpleados(){return (List<Empleado>) empleadoRepo.findAll();}
+
+	@GetMapping("/")
+	public List<Empleado> getEmpleadoLikeName(@RequestParam String nombre){
+		return (List<Empleado>) empleadoRepo.findByNombre_CompletoContains(nombre);
 	}
-	
-	@RequestMapping("/empleados/{id}")
-	public Optional<Empleado> getEmpleado(@PathVariable int id){
-		return repo.findById(id);
+
+	@GetMapping("/cliente")
+	public Optional<Empleado> getEmpleado(@RequestParam int ID){
+		return empleadoRepo.findById(ID);
 	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/empleados")
-	public void addEmpleado(@RequestBody Empleado empleado){
-		repo.save(empleado);
+
+	@PostMapping("/cliente")
+	public ResponseEntity postEmpleado(@RequestParam String email, @RequestParam String password,
+									   @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
+									   @RequestParam String telefono, @RequestParam String cedula,
+									   @RequestParam String celular, @RequestParam Empleado.Sexo sexo,
+									   @RequestParam Ubicacion ubicacion, @RequestParam CuentaBancaria cuentaBancaria
+
+	){
+
+		Empleado nuevoEmpleado = new Empleado();
+		nuevoEmpleado.setEmail(email);
+		nuevoEmpleado.setPassword(password);
+		nuevoEmpleado.setTipo(tipo);
+		nuevoEmpleado.setNombre_Completo(nombre_Completo);
+		nuevoEmpleado.setTelefono(telefono);
+		nuevoEmpleado.setCedula(cedula);
+		nuevoEmpleado.setCelular(celular);
+		nuevoEmpleado.setSexo(sexo);
+		nuevoEmpleado.setUbicacion(ubicacion);
+		nuevoEmpleado.setCuentaBancaria(cuentaBancaria);
+
+		empleadoRepo.save(nuevoEmpleado);
+		return  ResponseEntity.ok().body(nuevoEmpleado);
+
 	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/empleados/{id}")
-	public void updateEmpleado(@RequestBody Empleado empleado, @PathVariable int id){
-		repo.save(empleado); //fix this
+
+	@PutMapping("/cliente")
+	public ResponseEntity putEmpleado(@RequestParam int ID, @RequestParam String email, @RequestParam String password,
+									  @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
+									  @RequestParam String telefono, @RequestParam String cedula,
+									  @RequestParam String celular, @RequestParam Empleado.Sexo sexo,
+									  @RequestParam Ubicacion ubicacion, @RequestParam CuentaBancaria cuentaBancaria
+
+	){
+		Map<String, String> response = new HashMap<>();
+		Optional<Empleado> empleado = empleadoRepo.findById(ID);
+
+		if (empleado.isEmpty()){
+			response.put("found", "false");
+			response.put("message", "empleado no encontrado");
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		Empleado oldEmpleado = new Empleado();
+		oldEmpleado.setEmail(email);
+		oldEmpleado.setID_Empleado(ID);
+		oldEmpleado.setFecha_Creacion(empleado.get().getFecha_Creacion());
+		oldEmpleado.setPassword(password);
+		oldEmpleado.setTipo(tipo);
+		oldEmpleado.setNombre_Completo(nombre_Completo);
+		oldEmpleado.setTelefono(telefono);
+		oldEmpleado.setCedula(cedula);
+		oldEmpleado.setCelular(celular);
+		oldEmpleado.setSexo(sexo);
+		oldEmpleado.setUbicacion(ubicacion);
+		oldEmpleado.setCuentaBancaria(cuentaBancaria);
+
+		empleadoRepo.save(oldEmpleado);
+		return  ResponseEntity.ok().body(oldEmpleado);
 	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/empleados/{id}")
-	public void deleteEmpleado(@PathVariable int id){
-		repo.deleteById(id); //hay un delete por id y otro por objeto
+
+	@DeleteMapping("/cliente")
+	public ResponseEntity deleteEmpleado(@RequestParam int ID) {
+
+		Map<String, String> response = new HashMap<>();
+		Optional<Empleado> empleado = empleadoRepo.findById(ID);
+
+		if (empleado.isEmpty()) {
+			response.put("deleted", "false");
+			response.put("message", "empleado no encontrada");
+			return ResponseEntity.badRequest().body(response);
+		} else {
+			empleadoRepo.delete(empleado.get());
+			response.put("deleted", "true");
+			response.put("message", "empleado " + ID + " eliminado");
+			return ResponseEntity.ok().body(response);
+		}
 	}
-	
+
 }
