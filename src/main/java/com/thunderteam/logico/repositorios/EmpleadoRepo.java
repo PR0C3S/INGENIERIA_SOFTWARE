@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface EmpleadoRepo extends CrudRepository<Empleado,Integer>
 {
-    List<Empleado> findByNombre_CompletoContains(String Nombre);
+    List<Empleado> findByNombreCompletoContains(String Nombre);
 }

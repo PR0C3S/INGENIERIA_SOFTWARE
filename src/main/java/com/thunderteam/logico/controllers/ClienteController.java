@@ -1,5 +1,7 @@
 package com.thunderteam.logico.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.thunderteam.logico.entities.*;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/clientes")
 public class ClienteController {
 
 	@Autowired
@@ -18,9 +21,9 @@ public class ClienteController {
 	@GetMapping("/")
 	public List<Cliente> getAllClientes(){return (List<Cliente>) clienteRepo.findAll();}
 
-	@GetMapping("/")
+	@GetMapping("/nombre")
 	public List<Cliente> getClienteLikeName(@RequestParam String nombre){
-		return (List<Cliente>) clienteRepo.findByNombre_CompletoContains(nombre);
+		return (List<Cliente>) clienteRepo.findByNombreCompletoContains(nombre);
 	}
 
 	@GetMapping("/cliente")
@@ -31,22 +34,29 @@ public class ClienteController {
 	@PostMapping("/cliente")
 	public ResponseEntity postCliente(@RequestParam String email,
 									   @RequestParam String nombre_Completo,
-									  @RequestParam Date fecha_Nacimiento,
+									  @RequestParam String fecha_Nacimiento,
 									   @RequestParam String telefono, @RequestParam String cedula,
-									   @RequestParam String celular, @RequestParam Cliente.Sexo sexo,
-									   @RequestParam Ubicacion ubicacion
+									   @RequestParam String celular, @RequestParam String sexo
 
 	){
 
+
+		Date date1= null;
+		try {
+			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		Cliente nuevoCliente = new Cliente();
-		nuevoCliente.setFecha_Nacimiento(fecha_Nacimiento);
+		nuevoCliente.setFecha_Nacimiento(date1);
 		nuevoCliente.setEmail(email);
-		nuevoCliente.setNombre_Completo(nombre_Completo);
+		nuevoCliente.setNombreCompleto(nombre_Completo);
 		nuevoCliente.setTelefono(telefono);
 		nuevoCliente.setCedula(cedula);
 		nuevoCliente.setCelular(celular);
-		nuevoCliente.setSexo(sexo);
-		nuevoCliente.setUbicacion(ubicacion);
+		nuevoCliente.setSexo(Cliente.Sexo.valueOf(sexo));
+		//nuevoCliente.setUbicacion(ubicacion);
 
 
 		clienteRepo.save(nuevoCliente);
@@ -57,10 +67,10 @@ public class ClienteController {
 	@PutMapping("/cliente")
 	public ResponseEntity putCliente(@RequestParam String email, @RequestParam int ID,
 									  @RequestParam String nombre_Completo,
-									  @RequestParam Date fecha_Nacimiento,
+									  @RequestParam String fecha_Nacimiento,
 									  @RequestParam String telefono, @RequestParam String cedula,
-									  @RequestParam String celular, @RequestParam Cliente.Sexo sexo,
-									  @RequestParam Ubicacion ubicacion
+									  @RequestParam String celular, @RequestParam String sexo
+
 
 	){
 		Map<String, String> response = new HashMap<>();
@@ -72,16 +82,23 @@ public class ClienteController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
+		Date date1= null;
+		try {
+			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		Cliente oldCliente = new Cliente();
 		oldCliente.setEmail(email);
 		oldCliente.setID_Cliente(ID);
-		oldCliente.setFecha_Nacimiento(fecha_Nacimiento);
-		oldCliente.setNombre_Completo(nombre_Completo);
+		oldCliente.setFecha_Nacimiento(date1);
+		oldCliente.setNombreCompleto(nombre_Completo);
 		oldCliente.setTelefono(telefono);
 		oldCliente.setCedula(cedula);
 		oldCliente.setCelular(celular);
-		oldCliente.setSexo(sexo);
-		oldCliente.setUbicacion(ubicacion);
+		oldCliente.setSexo(Cliente.Sexo.valueOf(sexo));
+		//oldCliente.setUbicacion(ubicacion);
 
 		clienteRepo.save(oldCliente);
 		return  ResponseEntity.ok().body(oldCliente);

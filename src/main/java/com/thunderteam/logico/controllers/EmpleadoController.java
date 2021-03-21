@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/empleados")
 public class EmpleadoController {
 	
 	@Autowired
@@ -21,17 +22,17 @@ public class EmpleadoController {
 	@GetMapping("/")
 	public List<Empleado> getAllEmpleados(){return (List<Empleado>) empleadoRepo.findAll();}
 
-	@GetMapping("/")
+	@GetMapping("/nombre")
 	public List<Empleado> getEmpleadoLikeName(@RequestParam String nombre){
-		return (List<Empleado>) empleadoRepo.findByNombre_CompletoContains(nombre);
+		return (List<Empleado>) empleadoRepo.findByNombreCompletoContains(nombre);
 	}
 
-	@GetMapping("/cliente")
+	@GetMapping("/empleado")
 	public Optional<Empleado> getEmpleado(@RequestParam int ID){
 		return empleadoRepo.findById(ID);
 	}
 
-	@PostMapping("/cliente")
+	@PostMapping("/empleado")
 	public ResponseEntity postEmpleado(@RequestParam String email, @RequestParam String password,
 									   @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
 									   @RequestParam String telefono, @RequestParam String cedula,
@@ -44,7 +45,7 @@ public class EmpleadoController {
 		nuevoEmpleado.setEmail(email);
 		nuevoEmpleado.setPassword(password);
 		nuevoEmpleado.setTipo(tipo);
-		nuevoEmpleado.setNombre_Completo(nombre_Completo);
+		nuevoEmpleado.setNombreCompleto(nombre_Completo);
 		nuevoEmpleado.setTelefono(telefono);
 		nuevoEmpleado.setCedula(cedula);
 		nuevoEmpleado.setCelular(celular);
@@ -57,7 +58,7 @@ public class EmpleadoController {
 
 	}
 
-	@PutMapping("/cliente")
+	@PutMapping("/empleado")
 	public ResponseEntity putEmpleado(@RequestParam int ID, @RequestParam String email, @RequestParam String password,
 									  @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
 									  @RequestParam String telefono, @RequestParam String cedula,
@@ -80,7 +81,7 @@ public class EmpleadoController {
 		oldEmpleado.setFecha_Creacion(empleado.get().getFecha_Creacion());
 		oldEmpleado.setPassword(password);
 		oldEmpleado.setTipo(tipo);
-		oldEmpleado.setNombre_Completo(nombre_Completo);
+		oldEmpleado.setNombreCompleto(nombre_Completo);
 		oldEmpleado.setTelefono(telefono);
 		oldEmpleado.setCedula(cedula);
 		oldEmpleado.setCelular(celular);
@@ -92,7 +93,7 @@ public class EmpleadoController {
 		return  ResponseEntity.ok().body(oldEmpleado);
 	}
 
-	@DeleteMapping("/cliente")
+	@DeleteMapping("/empleado")
 	public ResponseEntity deleteEmpleado(@RequestParam int ID) {
 
 		Map<String, String> response = new HashMap<>();

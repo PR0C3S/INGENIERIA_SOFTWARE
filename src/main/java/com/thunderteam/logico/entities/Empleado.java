@@ -36,7 +36,7 @@ public class Empleado {
     private Tipo tipo; //Gerente, Vendedor o Secretaria
 
     @Column(nullable = false)
-    private String nombre_Completo;
+    private String nombreCompleto;
 
     @Column
     private String telefono;

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ClienteRepo extends CrudRepository<Cliente,Integer>{
 
-    List<Cliente> findByNombre_CompletoContains(String Nombre);
+    List<Cliente> findByNombreCompletoContains(String Nombre);
 }

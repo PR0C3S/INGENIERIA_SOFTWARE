@@ -18,7 +18,7 @@ public class FacturaController {
     @GetMapping("/")
     public List<Factura> getAllFacturas(){return facturaService.getAll();}
 
-    @GetMapping("/factura")
+    @GetMapping("/ID")
     public ResponseEntity getAllByIDContrato(@RequestParam int ID){
         return  facturaService.getFactura(ID);
     }

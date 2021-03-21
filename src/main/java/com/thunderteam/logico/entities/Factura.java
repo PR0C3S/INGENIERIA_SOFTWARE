@@ -12,7 +12,7 @@ public class Factura{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Factura;
+    private int IDFactura;
 
     @Column(nullable = false)
     private Date fecha= new Date();

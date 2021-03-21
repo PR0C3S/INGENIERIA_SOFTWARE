@@ -10,6 +10,6 @@ public interface FacturaRepo extends CrudRepository<Factura,Integer> {
 
     List<Factura> findFacturaByFechaContains(Date fecha);
     List<Factura> findFacturaByContrato(Contrato contrato);
-    List<Factura> findFacturaByFacturaAndContrato(Contrato contrato, int ID);
+    List<Factura> findFacturaByContratoAndIDFactura(Contrato contrato, int ID);
 
 }

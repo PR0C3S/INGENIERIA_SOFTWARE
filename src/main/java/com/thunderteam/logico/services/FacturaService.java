@@ -57,7 +57,7 @@ public class FacturaService {
         }
 
         Factura oldFactura = new Factura();
-        oldFactura.setID_Factura(ID_Factura);
+        oldFactura.setIDFactura(ID_Factura);
         oldFactura.setFecha(factura.get().getFecha());
         oldFactura.setContrato(contrato);
         oldFactura.setNombre_Persona_Pago(nombre_Persona_Pago);
@@ -104,7 +104,7 @@ public class FacturaService {
     }
 
     public  List<Factura> findFacturaByFacturaAndContrato(Contrato contrato, int ID) {
-        return(facturaRepo.findFacturaByFacturaAndContrato(contrato,ID));
+        return(facturaRepo.findFacturaByContratoAndIDFactura(contrato,ID));
     }
 }
 
