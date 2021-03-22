@@ -32,50 +32,47 @@ public class ModeloVehiculoService {
 
     // Buscar todos los modelos de una marca
     public ResponseEntity getAllByMarca(String marca){
-        Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (marcaInstance.isEmpty()){
+        if (!marcaRepo.existsByNombreMarca(marca)){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
         }
 
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findModelo_VehiculosByMarcavehiculo(marcaInstance.get());
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByMarcavehiculo_NombreMarca(marca);
         return ResponseEntity.ok().body(listaModelos);
     }
 
     // Buscar todos los modelos de un tipo de vehiculo
     public ResponseEntity getAllByTipo(String tipo){
-        Optional<Tipo_Vehiculo> tipoInstance = tipoRepo.findTipo_VehiculoByNombreTipo(tipo);
         Map<String, String> response = new HashMap<>();
 
-        if (tipoInstance.isEmpty()){
+        if (!tipoRepo.existsByNombreTipo(tipo)){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
         }
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findModelo_VehiculosByTipovehiculo(tipoInstance.get());
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByTipovehiculo_NombreTipo(tipo);
         return ResponseEntity.ok().body(listaModelos);
     }
 
     // Buscar todos los modelos de un tipo de vehiculo y marca
     public ResponseEntity getAllByTipoAndMarca(String tipo, String marca){
-        Optional<Tipo_Vehiculo> tipoInstance = tipoRepo.findTipo_VehiculoByNombreTipo(tipo);
-        Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (tipoInstance.isEmpty()){
+        if (!tipoRepo.existsByNombreTipo(tipo)){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
-        }else if (marcaInstance.isEmpty()){
+        }
+        if (!marcaRepo.existsByNombreMarca(marca)){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
         }
         List<Modelo_Vehiculo> listaModelos = modeloRepo
-                .findModelo_VehiculosByMarcavehiculoAndTipovehiculo(marcaInstance.get(), tipoInstance.get());
+                .findAllByMarcavehiculo_NombreMarcaAndTipovehiculo_NombreTipo(marca,tipo);
 
         return ResponseEntity.ok().body(listaModelos);
     }
@@ -83,7 +80,8 @@ public class ModeloVehiculoService {
     // Buscar un modelo por su nombre
     public ResponseEntity getModelo(String nombreModelo){
         Map<String, String> response = new HashMap<>();
-        Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
+        Optional<Modelo_Vehiculo> modelo = modeloRepo
+                .findByNombreModelo(nombreModelo);
 
         if(modelo.isEmpty()){
             response.put("found", "false");
@@ -129,12 +127,12 @@ public class ModeloVehiculoService {
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
 
         if(modelo.isEmpty()){
-            response.put("found", "false");
+            response.put("delete", "false");
             response.put("message", "Modelo no encontrado");
             return ResponseEntity.badRequest().body(response);
         }else{
             modeloRepo.delete(modelo.get());
-            response.put("found", "true");
+            response.put("delete", "true");
             response.put("message", "Modelo \""+nombreModelo+"\" encontrado");
             return ResponseEntity.ok().body(response);
         }
