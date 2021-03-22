@@ -1,4 +1,5 @@
 package com.thunderteam.logico.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Municipio {
 
     //relacion con sector
     @OneToMany(mappedBy = "municipio")
+    @JsonIgnore
     private List<Sector> sector;
 
 

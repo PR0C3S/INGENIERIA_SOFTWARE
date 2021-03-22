@@ -78,7 +78,7 @@ public class ClienteController {
 
 		if (cliente.isEmpty()){
 			response.put("found", "false");
-			response.put("message", "empleado no encontrado");
+			response.put("message", "Cliente no encontrado");
 			return ResponseEntity.badRequest().body(response);
 		}
 
@@ -112,12 +112,12 @@ public class ClienteController {
 
 		if (cliente.isEmpty()) {
 			response.put("deleted", "false");
-			response.put("message", "empleado no encontrada");
+			response.put("message", "Cliente no encontrada");
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			clienteRepo.delete(cliente.get());
 			response.put("deleted", "true");
-			response.put("message", "empleado " + ID + " eliminado");
+			response.put("message", "Cliente " + ID + " eliminado");
 			return ResponseEntity.ok().body(response);
 		}
 	}

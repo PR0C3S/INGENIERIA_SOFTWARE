@@ -1,12 +1,11 @@
 package com.thunderteam.logico.controllers;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.thunderteam.logico.entities.*;
-import com.thunderteam.logico.repositorios.EmpleadoRepo;
+import com.thunderteam.logico.repositorios.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,14 @@ public class EmpleadoController {
 	
 	@Autowired
 	EmpleadoRepo empleadoRepo;
+	@Autowired
+	ProvinciaRepo provinciaRepo;
+	@Autowired
+	MunicipioRepo municipioRepo;
+	@Autowired
+	SectorRepo sectorRepo;
+	@Autowired
+	UbicacionRepo ubicacionRepo;
 
 	@GetMapping("/")
 	public List<Empleado> getAllEmpleados(){return (List<Empleado>) empleadoRepo.findAll();}
@@ -34,24 +41,53 @@ public class EmpleadoController {
 
 	@PostMapping("/empleado")
 	public ResponseEntity postEmpleado(@RequestParam String email, @RequestParam String password,
-									   @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
+									   @RequestParam String tipo, @RequestParam String nombre_Completo,
 									   @RequestParam String telefono, @RequestParam String cedula,
-									   @RequestParam String celular, @RequestParam Empleado.Sexo sexo,
-									   @RequestParam Ubicacion ubicacion, @RequestParam CuentaBancaria cuentaBancaria
+									   @RequestParam String celular, @RequestParam String sexo,
+									   @RequestParam String calle, @RequestParam String casa,
+									   @RequestParam String sector,@RequestParam String municipio,
+									   @RequestParam String provincia, @RequestParam String apartamento,
+									   @RequestParam String activo
 
 	){
+
+
+		Municipio newMunicipio = municipioRepo.findByNombre(municipio);
+		System.out.println(newMunicipio.getNombre());
+		Optional<Sector> newSector = sectorRepo.findByNombre(sector);
+		Ubicacion ubicacion = new Ubicacion();
+
+
+
+		if(newSector.isPresent()){
+			ubicacion.setApartamento(apartamento);
+			ubicacion.setCasa(casa);
+			ubicacion.setSector(newSector.get());
+			ubicacion.setCalle(calle);
+		}else{
+			Sector newSector1 = new Sector(sector, newMunicipio);
+			sectorRepo.save(newSector1);
+			ubicacion.setApartamento(apartamento);
+			ubicacion.setCasa(casa);
+			ubicacion.setSector(newSector1);
+			ubicacion.setCalle(calle);
+		}
+		ubicacionRepo.save(ubicacion);
+
+
+
 
 		Empleado nuevoEmpleado = new Empleado();
 		nuevoEmpleado.setEmail(email);
 		nuevoEmpleado.setPassword(password);
-		nuevoEmpleado.setTipo(tipo);
+		nuevoEmpleado.setTipo(Empleado.Tipo.valueOf(tipo));
 		nuevoEmpleado.setNombreCompleto(nombre_Completo);
 		nuevoEmpleado.setTelefono(telefono);
 		nuevoEmpleado.setCedula(cedula);
 		nuevoEmpleado.setCelular(celular);
-		nuevoEmpleado.setSexo(sexo);
+		nuevoEmpleado.setSexo(Empleado.Sexo.valueOf(sexo));
+		nuevoEmpleado.setActivo(Empleado.YesNo.valueOf(activo));
 		nuevoEmpleado.setUbicacion(ubicacion);
-		nuevoEmpleado.setCuentaBancaria(cuentaBancaria);
 
 		empleadoRepo.save(nuevoEmpleado);
 		return  ResponseEntity.ok().body(nuevoEmpleado);
@@ -60,10 +96,13 @@ public class EmpleadoController {
 
 	@PutMapping("/empleado")
 	public ResponseEntity putEmpleado(@RequestParam int ID, @RequestParam String email, @RequestParam String password,
-									  @RequestParam Empleado.Tipo tipo, @RequestParam String nombre_Completo,
+									  @RequestParam String tipo, @RequestParam String nombre_Completo,
 									  @RequestParam String telefono, @RequestParam String cedula,
-									  @RequestParam String celular, @RequestParam Empleado.Sexo sexo,
-									  @RequestParam Ubicacion ubicacion, @RequestParam CuentaBancaria cuentaBancaria
+									  @RequestParam String celular, @RequestParam String sexo,
+									  @RequestParam String calle, @RequestParam String casa,
+									  @RequestParam String sector,@RequestParam String municipio,
+									  @RequestParam String provincia, @RequestParam String apartamento,
+									  @RequestParam String activo
 
 	){
 		Map<String, String> response = new HashMap<>();
@@ -75,19 +114,41 @@ public class EmpleadoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
+		sector = sector.toLowerCase();
+		Municipio newMunicipio = municipioRepo.findByNombre(municipio);
+		Optional<Sector> newSector = sectorRepo.findByNombre(sector);
+		Ubicacion ubicacion = new Ubicacion();
+
+
+
+		if(newSector.isPresent()){
+			ubicacion.setApartamento(apartamento);
+			ubicacion.setCasa(casa);
+			ubicacion.setSector(newSector.get());
+			ubicacion.setCalle(calle);
+		}else{
+			Sector newSector1 = new Sector(sector, newMunicipio);
+			sectorRepo.save(newSector1);
+			ubicacion.setApartamento(apartamento);
+			ubicacion.setCasa(casa);
+			ubicacion.setSector(newSector1);
+			ubicacion.setCalle(calle);
+		}
+		ubicacionRepo.save(ubicacion);
+
+
 		Empleado oldEmpleado = new Empleado();
 		oldEmpleado.setEmail(email);
-		oldEmpleado.setID_Empleado(ID);
-		oldEmpleado.setFecha_Creacion(empleado.get().getFecha_Creacion());
 		oldEmpleado.setPassword(password);
-		oldEmpleado.setTipo(tipo);
+		oldEmpleado.setTipo(Empleado.Tipo.valueOf(tipo));
 		oldEmpleado.setNombreCompleto(nombre_Completo);
 		oldEmpleado.setTelefono(telefono);
 		oldEmpleado.setCedula(cedula);
 		oldEmpleado.setCelular(celular);
-		oldEmpleado.setSexo(sexo);
+		oldEmpleado.setSexo(Empleado.Sexo.valueOf(sexo));
+		oldEmpleado.setActivo(Empleado.YesNo.valueOf(activo));
 		oldEmpleado.setUbicacion(ubicacion);
-		oldEmpleado.setCuentaBancaria(cuentaBancaria);
+		oldEmpleado.setID_Empleado(ID);
 
 		empleadoRepo.save(oldEmpleado);
 		return  ResponseEntity.ok().body(oldEmpleado);
@@ -99,16 +160,45 @@ public class EmpleadoController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Empleado> empleado = empleadoRepo.findById(ID);
 
+
+
 		if (empleado.isEmpty()) {
 			response.put("deleted", "false");
 			response.put("message", "empleado no encontrada");
 			return ResponseEntity.badRequest().body(response);
 		} else {
+
 			empleadoRepo.delete(empleado.get());
 			response.put("deleted", "true");
 			response.put("message", "empleado " + ID + " eliminado");
+			ubicacionRepo.delete(empleado.get().getUbicacion());
 			return ResponseEntity.ok().body(response);
 		}
+	}
+
+	@GetMapping("/login")
+	public ResponseEntity authentication(@RequestParam String email,@RequestParam String password){
+		Map<String, String> response = new HashMap<>();
+		Optional<Empleado> empleado = empleadoRepo.findByEmail(email);
+
+		if(empleado.isEmpty()){
+			response.put("found", "false");
+			response.put("authenticated","false");
+			response.put("message", "usuario no encontrado");
+			return ResponseEntity.ok().body(response);
+		}else{
+			String userPassword = empleado.get().getPassword();
+			response.put("found", "true");
+			if(password.equals(userPassword)){
+				response.put("authenticated","true");
+				response.put("message", "login correcto");
+				return ResponseEntity.ok().body(response);
+			}
+			response.put("authenticated","false");
+			response.put("message", "password incorrecto");
+			return ResponseEntity.ok().body(response);
+		}
+
 	}
 
 }

@@ -1,11 +1,17 @@
 package com.thunderteam.logico.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "Sectores")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sector {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +27,11 @@ public class Sector {
 
     //relacion con ubicacion
     @OneToMany(mappedBy = "sector")
+    @JsonIgnore
     private List<Ubicacion> ubicacion;
 
+    public Sector(String nombre, Municipio municipio) {
+        this.nombre = nombre;
+        this.municipio = municipio;
+    }
 }

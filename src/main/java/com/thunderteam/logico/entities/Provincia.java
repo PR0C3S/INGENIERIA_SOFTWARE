@@ -1,4 +1,5 @@
 package com.thunderteam.logico.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
@@ -13,10 +14,11 @@ public class Provincia {
 
 
     @Column(nullable = false)
-    private int nombre;
+    private String nombre;
 
     //relacion con municipio
     @OneToMany(mappedBy = "provincia")
+    @JsonIgnore
     private List<Municipio> municipio;
 
 

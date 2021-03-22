@@ -13,6 +13,10 @@ import java.util.List;
 @Table
 public class Empleado {
 
+    public enum YesNo{
+        Si, No
+    }
+
     public enum Sexo{
         M, F
     }
@@ -50,6 +54,10 @@ public class Empleado {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('M','F')")
     private Sexo sexo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('Si','No')")
+    private YesNo activo;
 
     @Column(nullable = true)
     private Date fecha_Creacion= new Date();
