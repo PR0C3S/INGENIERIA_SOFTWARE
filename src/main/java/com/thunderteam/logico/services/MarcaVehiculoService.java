@@ -29,7 +29,7 @@ public class MarcaVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Marca_Vehiculo> marca = marcaRepo.findByNombreMarca(nombreMarca);
 
-        if (marca.isEmpty()){
+        if (!marca.isPresent()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -57,7 +57,7 @@ public class MarcaVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Marca_Vehiculo> marca = marcaRepo.findByNombreMarca(nombreMarca);
 
-        if(marca.isEmpty()){
+        if(!marca.isPresent()){
             response.put("deleted", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);

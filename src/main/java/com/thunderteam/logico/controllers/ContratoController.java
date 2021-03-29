@@ -67,7 +67,7 @@ public class ContratoController {
 		Map<String, String> response = new HashMap<>();
 		Optional <Contrato> contrato = contratoRepo.findById(ID);
 
-		if (contrato.isEmpty()){
+		if (!contrato.isPresent()){
 			response.put("found", "false");
 			response.put("message", "contrato no encontrada");
 			return ResponseEntity.badRequest().body(response);
@@ -95,7 +95,7 @@ public class ContratoController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Contrato> contrato = contratoRepo.findById(ID);
 
-		if(contrato.isEmpty()){
+		if(!contrato.isPresent()){
 			response.put("deleted", "false");
 			response.put("message", "contrato no encontrada");
 			return ResponseEntity.badRequest().body(response);

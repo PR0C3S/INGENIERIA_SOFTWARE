@@ -50,7 +50,7 @@ public class FacturaService {
         Map<String, String> response = new HashMap<>();
         Optional<Factura> factura = facturaRepo.findById(ID_Factura);
 
-        if (factura.isEmpty()){
+        if (!factura.isPresent()){
             response.put("found", "false");
             response.put("message", "Factura no encontrada");
             return ResponseEntity.badRequest().body(response);
