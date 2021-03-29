@@ -6,9 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 
-@Data
+
 @Entity
 @Table(name = "Clientes")
+@Data
 public class Cliente {
 
     public enum Sexo{
