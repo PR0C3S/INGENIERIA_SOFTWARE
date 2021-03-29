@@ -1,8 +1,5 @@
 package com.thunderteam.logico.repositorios;
-
-import com.thunderteam.logico.entities.Factura;
 import org.springframework.data.repository.CrudRepository;
-
 import com.thunderteam.logico.entities.Empleado;
 
 import java.util.List;
