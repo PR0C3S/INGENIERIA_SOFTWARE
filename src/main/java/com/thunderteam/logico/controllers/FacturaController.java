@@ -19,7 +19,7 @@ public class FacturaController {
     public List<Factura> getAllFacturas(){return facturaService.getAll();}
 
     @GetMapping("/ID")
-    public ResponseEntity getAllByIDContrato(@RequestParam int ID){
+    public ResponseEntity<Factura> getAllByIDContrato(@RequestParam int ID){
         return  facturaService.getFactura(ID);
     }
 
@@ -34,25 +34,25 @@ public class FacturaController {
     }
 
     @GetMapping("/factura")
-    public ResponseEntity getFactura(@RequestParam int ID){
+    public ResponseEntity<Factura> getFactura(@RequestParam int ID){
         return facturaService.getFactura(ID);
     }
 
     @PostMapping("/factura")
-    public ResponseEntity postFactura(@RequestParam String nombre_Persona_Pago, @RequestParam Contrato contrato,
+    public ResponseEntity<Factura> postFactura(@RequestParam String nombre_Persona_Pago, @RequestParam Contrato contrato,
                                       @RequestParam Float monto){
 
         return facturaService.postFactura(nombre_Persona_Pago,contrato,monto);
     }
 
     @PutMapping("/factura")
-    public ResponseEntity putFactura(@RequestParam int ID_Factura, @RequestParam String nombre_Persona_Pago,
+    public ResponseEntity<Factura> putFactura(@RequestParam int ID_Factura, @RequestParam String nombre_Persona_Pago,
                                      @RequestParam Contrato contrato, @RequestParam Float monto){
         return facturaService.updateFactura(ID_Factura, nombre_Persona_Pago,contrato,monto);
     }
 
     @DeleteMapping("/factura")
-    public ResponseEntity deleteFactura(@RequestParam int ID){
+    public ResponseEntity<Factura> deleteFactura(@RequestParam int ID){
         return facturaService.deleteFactura(ID);
     }
 

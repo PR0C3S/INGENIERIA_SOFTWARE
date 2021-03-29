@@ -90,7 +90,7 @@ public class ClienteController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Cliente> cliente = clienteRepo.findById(ID);
 
-		if (cliente.isEmpty()){
+		if (!cliente.isPresent()){
 			response.put("found", "false");
 			response.put("message", "Cliente no encontrado");
 			return ResponseEntity.badRequest().body(response);
@@ -124,7 +124,7 @@ public class ClienteController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Cliente> cliente = clienteRepo.findById(ID);
 
-		if (cliente.isEmpty()) {
+		if (!cliente.isPresent()) {
 			response.put("deleted", "false");
 			response.put("message", "Cliente no encontrada");
 			return ResponseEntity.badRequest().body(response);
