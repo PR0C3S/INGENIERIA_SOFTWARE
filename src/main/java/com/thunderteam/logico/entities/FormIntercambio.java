@@ -8,28 +8,28 @@ import javax.persistence.*;
 @Table(name = "Formulario_de_intercambios")
 public class FormIntercambio extends Formulario{
 
-    public enum YesNo{
-        Si, No
-    }
+	/*
+	 * public enum YesNo{ Si, No }
+	 */
 
     @Column(nullable = false)
     private float calificacion;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private YesNo rentado;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo rentado;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private YesNo record_Reparaciones;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo record_Reparaciones;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private YesNo millero_Funciona;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo millero_Funciona;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private YesNo funcionaAire;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo funcionaAire;
 
     @Column(nullable = false)
     private String pregunta_Tecnica1;

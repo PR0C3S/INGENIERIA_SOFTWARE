@@ -9,12 +9,12 @@ import java.util.Date;
 @Table(name = "Vehiculos")
 public class Vehiculo {
 
-    public enum Condicion{
-        Nuevo, Usado
-    }
-    public enum Estado{
-        Disponible, Agotado, Espera
-    }
+	/*
+	 * public enum Condicion{ Nuevo, Usado }
+	 */
+	/*
+	 * public enum Estado{ Disponible, Agotado, Espera }
+	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +27,8 @@ public class Vehiculo {
     private String Accesorios;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Nuevo','Usado')")
-    private Condicion condicion;
+    //@Column(columnDefinition = "ENUM('Nuevo','Usado')")
+    private EnumCondicionVehiculo condicion;
 
 
 
@@ -75,8 +75,8 @@ public class Vehiculo {
     private float precio;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Disponible','Agotado','Espera')")
-    private Estado estado; //Agotado/Disponible//En Espera
+    //@Column(columnDefinition = "ENUM('Disponible','Agotado','Espera')")
+    private EnumEstadoVehiculo estado; //Agotado/Disponible//En Espera
 
     @Column(nullable = false)
     private String descripcion;

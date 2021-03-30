@@ -35,8 +35,8 @@ public class Cliente {
     private String cedula;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('M','F')")
-    private Sexo sexo;
+	/* @Column(columnDefinition = "ENUM('M','F')") */
+    private EnumSexo sexo;
 
     @Column(nullable = false)
     private Date fecha_Nacimiento;
