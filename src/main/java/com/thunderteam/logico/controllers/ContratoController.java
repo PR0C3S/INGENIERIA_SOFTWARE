@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/contratos")
 public class ContratoController {
 	
 	@Autowired
@@ -20,7 +21,7 @@ public class ContratoController {
 	@GetMapping("/")
 	public List<Contrato> getAllContratos(){return (List<Contrato>) contratoRepo.findAll();}
 
-	@GetMapping("/contrato")
+	@GetMapping("/id")
 	public Optional<Contrato> getAllByID(@RequestParam int ID){
 		return  contratoRepo.findById(ID);
 	}
@@ -31,7 +32,7 @@ public class ContratoController {
 		return(contratoRepo.findContratoByFechaContains(fecha));
 	}
 
-	@PostMapping("/Contrato")
+	@PostMapping("/save")
 	public ResponseEntity postContrato(@RequestParam Date plazo_Pago, @RequestParam Date fecha_Entrega,
 								 @RequestParam EnumEstadoContrato status, @RequestParam EnumTipoContrato tipo,
 								 @RequestParam float precio_Vehiculo, @RequestParam float diferencia,
@@ -55,7 +56,7 @@ public class ContratoController {
 		return  ResponseEntity.ok().body(nuevoContrato);
 	}
 
-	@PutMapping ("/Contrato")
+	@PutMapping ("/edit")
 	public ResponseEntity putContrato(@RequestParam int ID, @RequestParam Date plazo_Pago, @RequestParam Date fecha_Entrega,
 								 @RequestParam EnumEstadoContrato status, @RequestParam EnumTipoContrato tipo,
 								 @RequestParam float precio_Vehiculo, @RequestParam float diferencia,
@@ -90,7 +91,7 @@ public class ContratoController {
 		return  ResponseEntity.ok().body(oldContrato);
 	}
 
-	@DeleteMapping("/contrato")
+	@DeleteMapping("/delete")
 	public ResponseEntity deleteContrato(@RequestParam int ID){
 		Map<String, String> response = new HashMap<>();
 		Optional<Contrato> contrato = contratoRepo.findById(ID);
