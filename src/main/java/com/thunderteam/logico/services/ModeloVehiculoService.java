@@ -35,13 +35,13 @@ public class ModeloVehiculoService {
         Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (marcaInstance.isEmpty()){
+        if (!marcaInstance.isPresent()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
         }
 
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findModelo_VehiculosByMarcavehiculo(marcaInstance.get());
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.find(marcaInstance.get());
         return ResponseEntity.ok().body(listaModelos);
     }
 

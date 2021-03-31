@@ -70,8 +70,8 @@ public class Version_Vehiculo {
     private List<Vehiculo> vehiculo;
 
     public Version_Vehiculo(String nombreVersion, String color_Exterior, String color_Interior,
-                            int puertas, int pasajeros, String motor, Combustible combustible,
-                            Transmision transmision, Traccion traccion, Modelo_Vehiculo modeloVehiculo) {
+                            int puertas, int pasajeros, String motor, EnumCombustible combustible,
+                            EnumTransmision transmision, EnumTraccion traccion, Modelo_Vehiculo modeloVehiculo) {
         this.nombreVersion = nombreVersion;
         this.color_Exterior = color_Exterior;
         this.color_Interior = color_Interior;
