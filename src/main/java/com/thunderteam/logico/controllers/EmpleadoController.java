@@ -80,13 +80,13 @@ public class EmpleadoController {
 		Empleado nuevoEmpleado = new Empleado();
 		nuevoEmpleado.setEmail(email);
 		nuevoEmpleado.setPassword(password);
-		nuevoEmpleado.setTipo(Empleado.Tipo.valueOf(tipo));
+		nuevoEmpleado.setTipo(EnumTipoEmpleado.valueOf(tipo));
 		nuevoEmpleado.setNombreCompleto(nombre_Completo);
 		nuevoEmpleado.setTelefono(telefono);
 		nuevoEmpleado.setCedula(cedula);
 		nuevoEmpleado.setCelular(celular);
-		nuevoEmpleado.setSexo(Empleado.Sexo.valueOf(sexo));
-		nuevoEmpleado.setActivo(Empleado.YesNo.valueOf(activo));
+		nuevoEmpleado.setSexo(EnumSexo.valueOf(sexo));
+		nuevoEmpleado.setActivo(EnumSiNo.valueOf(activo));
 		nuevoEmpleado.setUbicacion(ubicacion);
 
 		empleadoRepo.save(nuevoEmpleado);
@@ -140,13 +140,13 @@ public class EmpleadoController {
 		Empleado oldEmpleado = new Empleado();
 		oldEmpleado.setEmail(email);
 		oldEmpleado.setPassword(password);
-		oldEmpleado.setTipo(Empleado.Tipo.valueOf(tipo));
+		oldEmpleado.setTipo(EnumTipoEmpleado.valueOf(tipo));
 		oldEmpleado.setNombreCompleto(nombre_Completo);
 		oldEmpleado.setTelefono(telefono);
 		oldEmpleado.setCedula(cedula);
 		oldEmpleado.setCelular(celular);
-		oldEmpleado.setSexo(Empleado.Sexo.valueOf(sexo));
-		oldEmpleado.setActivo(Empleado.YesNo.valueOf(activo));
+		oldEmpleado.setSexo(EnumSexo.valueOf(sexo));
+		oldEmpleado.setActivo(EnumSiNo.valueOf(activo));
 		oldEmpleado.setUbicacion(ubicacion);
 		oldEmpleado.setID_Empleado(ID);
 

@@ -63,7 +63,7 @@ public class ClienteController {
 		nuevoCliente.setTelefono(telefono);
 		nuevoCliente.setCedula(cedula);
 		nuevoCliente.setCelular(celular);
-		nuevoCliente.setSexo(Cliente.Sexo.valueOf(sexo));
+		nuevoCliente.setSexo(EnumSexo.valueOf(sexo));
 		//nuevoCliente.setUbicacion(ubicacion);
 
 
@@ -111,7 +111,7 @@ public class ClienteController {
 		oldCliente.setTelefono(telefono);
 		oldCliente.setCedula(cedula);
 		oldCliente.setCelular(celular);
-		oldCliente.setSexo(Cliente.Sexo.valueOf(sexo));
+		oldCliente.setSexo(EnumSexo.valueOf(sexo));
 		//oldCliente.setUbicacion(ubicacion);
 
 		clienteRepo.save(oldCliente);

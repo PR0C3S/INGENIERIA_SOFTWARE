@@ -13,13 +13,13 @@ import java.util.List;
 
 public class Contrato {
 
-    public enum tipoContrato{
-            Intercambio, Venta
-    }
+	/*
+	 * public enum tipoContrato{ Intercambio, Venta }
+	 */
 
-    public enum Estado{
-        Activo, Culminado
-    }
+	/*
+	 * public enum Estado{ Activo, Culminado }
+	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,13 +35,13 @@ public class Contrato {
     private Date fecha_Entrega;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Activo','Culminado')")
-    private Estado status; //Activo, Culminado
+//    @Column(columnDefinition = "ENUM('Activo','Culminado')")
+    private EnumEstadoContrato status; //Activo, Culminado
 
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Intercambio','Venta')")
-    private tipoContrato tipo; // Intercambio, Venta
+    //@Column(columnDefinition = "ENUM('Intercambio','Venta')")
+    private EnumTipoContrato tipo; // Intercambio, Venta
 
     @Column(nullable = false)
     private float precio_Vehiculo;

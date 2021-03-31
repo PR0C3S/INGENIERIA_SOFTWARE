@@ -33,7 +33,7 @@ public class ContratoController {
 
 	@PostMapping("/Contrato")
 	public ResponseEntity postContrato(@RequestParam Date plazo_Pago, @RequestParam Date fecha_Entrega,
-								 @RequestParam Contrato.Estado status, @RequestParam Contrato.tipoContrato tipo,
+								 @RequestParam EnumEstadoContrato status, @RequestParam EnumTipoContrato tipo,
 								 @RequestParam float precio_Vehiculo, @RequestParam float diferencia,
 								 @RequestParam Cliente cliente,
 								 @RequestParam Empleado empleado, @RequestParam Vehiculo vehiculo,
@@ -57,7 +57,7 @@ public class ContratoController {
 
 	@PutMapping ("/Contrato")
 	public ResponseEntity putContrato(@RequestParam int ID, @RequestParam Date plazo_Pago, @RequestParam Date fecha_Entrega,
-								 @RequestParam Contrato.Estado status, @RequestParam Contrato.tipoContrato tipo,
+								 @RequestParam EnumEstadoContrato status, @RequestParam EnumTipoContrato tipo,
 								 @RequestParam float precio_Vehiculo, @RequestParam float diferencia,
 								 @RequestParam Cliente cliente,
 								 @RequestParam Empleado empleado, @RequestParam Vehiculo vehiculo,

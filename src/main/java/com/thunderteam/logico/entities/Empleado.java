@@ -13,17 +13,17 @@ import java.util.List;
 @Table
 public class Empleado {
 
-    public enum YesNo{
-        Si, No
-    }
+	/*
+	 * public enum YesNo{ Si, No }
+	 */
 
-    public enum Sexo{
-        M, F
-    }
+	/*
+	 * public enum Sexo{ M, F }
+	 */
 
-    public enum Tipo{
-        Gerente, Vendedor, Secretaria
-    }
+	/*
+	 * public enum Tipo{ Gerente, Vendedor, Secretaria }
+	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +36,8 @@ public class Empleado {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Gerente','Vendedor','Secretaria')")
-    private Tipo tipo; //Gerente, Vendedor o Secretaria
+//    @Column(columnDefinition = "ENUM('Gerente','Vendedor','Secretaria')")
+    private EnumTipoEmpleado tipo; //Gerente, Vendedor o Secretaria
 
     @Column(nullable = false)
     private String nombreCompleto;
@@ -52,12 +52,12 @@ public class Empleado {
     private String celular;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('M','F')")
-    private Sexo sexo;
+	/* @Column(columnDefinition = "ENUM('M','F')") */
+    private EnumSexo sexo;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private YesNo activo;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo activo;
 
     @Column(nullable = true)
     private Date fecha_Creacion= new Date();
