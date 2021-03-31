@@ -35,7 +35,7 @@ public class ModeloVehiculoService {
         Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (!marcaInstance.isPresent()){
+        if (marcaInstance.isEmpty()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -50,7 +50,7 @@ public class ModeloVehiculoService {
         Optional<Tipo_Vehiculo> tipoInstance = tipoRepo.findTipo_VehiculoByNombreTipo(tipo);
         Map<String, String> response = new HashMap<>();
 
-        if (!tipoInstance.isPresent()){
+        if (tipoInstance.isEmpty()){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
@@ -65,11 +65,11 @@ public class ModeloVehiculoService {
         Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (!tipoInstance.isPresent()){
+        if (tipoInstance.isEmpty()){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
-        }else if (!marcaInstance.isPresent()){
+        }else if (marcaInstance.isEmpty()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -85,7 +85,7 @@ public class ModeloVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
 
-        if(!modelo.isPresent()){
+        if(modelo.isEmpty()){
             response.put("found", "false");
             response.put("message", "Modelo no encontrado");
             return ResponseEntity.badRequest().body(response);
@@ -105,11 +105,11 @@ public class ModeloVehiculoService {
             response.put("Created", "false");
             response.put("message", "Este modelo ya existe");
             return ResponseEntity.badRequest().body(response);
-        }else if (!tipoInstance.isPresent()){
+        }else if (tipoInstance.isEmpty()){
             response.put("Created", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
-        }else if (!marcaInstance.isPresent()){
+        }else if (marcaInstance.isEmpty()){
             response.put("Created", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -128,7 +128,7 @@ public class ModeloVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
 
-        if(!modelo.isPresent()){
+        if(modelo.isEmpty()){
             response.put("found", "false");
             response.put("message", "Modelo no encontrado");
             return ResponseEntity.badRequest().body(response);

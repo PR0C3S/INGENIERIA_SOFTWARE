@@ -1,13 +1,15 @@
 package com.thunderteam.logico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "Versiones_de_vehiculos")
-
+@RequiredArgsConstructor
 public class Version_Vehiculo {
 
 	/*
@@ -66,4 +68,19 @@ public class Version_Vehiculo {
     @OneToMany(mappedBy = "version_vehiculo")
     @JsonIgnore
     private List<Vehiculo> vehiculo;
+
+    public Version_Vehiculo(String nombreVersion, String color_Exterior, String color_Interior,
+                            int puertas, int pasajeros, String motor, Combustible combustible,
+                            Transmision transmision, Traccion traccion, Modelo_Vehiculo modeloVehiculo) {
+        this.nombreVersion = nombreVersion;
+        this.color_Exterior = color_Exterior;
+        this.color_Interior = color_Interior;
+        this.puertas = puertas;
+        this.pasajeros = pasajeros;
+        this.motor = motor;
+        this.combustible = combustible;
+        this.transmision = transmision;
+        this.traccion = traccion;
+        this.modeloVehiculo = modeloVehiculo;
+    }
 }
