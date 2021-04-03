@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ClienteController {
 
 	@Autowired
@@ -43,32 +44,9 @@ public class ClienteController {
 
 
 	@PostMapping("/save")
-	public ResponseEntity postCliente(@RequestParam String email,
-									   @RequestParam String nombre_Completo,
-									  @RequestParam String fecha_Nacimiento,
-									   @RequestParam String telefono, @RequestParam String cedula,
-									   @RequestParam String celular, @RequestParam String sexo){
-
-		Date date1= null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		Cliente nuevoCliente = new Cliente();
-		nuevoCliente.setFecha_Nacimiento(date1);
-		nuevoCliente.setEmail(email);
-		nuevoCliente.setNombreCompleto(nombre_Completo);
-		nuevoCliente.setTelefono(telefono);
-		nuevoCliente.setCedula(cedula);
-		nuevoCliente.setCelular(celular);
-		nuevoCliente.setSexo(EnumSexo.valueOf(sexo));
-		//nuevoCliente.setUbicacion(ubicacion);
-
-
-		clienteRepo.save(nuevoCliente);
-		return  ResponseEntity.ok().body(nuevoCliente);
+	public ResponseEntity<Cliente> save(@RequestBody Cliente persona) {
+		Cliente obj = clienteRepo.save(persona);
+		return new ResponseEntity<Cliente>(obj, HttpStatus.OK);
 	}
 
 	/* @PostMapping(value = "/save")
@@ -79,14 +57,16 @@ public class ClienteController {
 
 
 	@PutMapping("/edit")
-	public ResponseEntity putCliente(@RequestParam String email, @RequestParam int ID,
+	public ResponseEntity putCliente(@RequestParam int ID,
 									  @RequestParam String nombre_Completo,
+									  @RequestParam String cedula,
+									  @RequestParam String email,
 									  @RequestParam String fecha_Nacimiento,
-									  @RequestParam String telefono, @RequestParam String cedula,
-									  @RequestParam String celular, @RequestParam String sexo
-
-
-	){
+									  @RequestParam String sexo,
+									  @RequestParam String celular,
+									  @RequestParam String telefono
+									  )
+	{
 		Map<String, String> response = new HashMap<>();
 		Optional<Cliente> cliente = clienteRepo.findById(ID);
 
