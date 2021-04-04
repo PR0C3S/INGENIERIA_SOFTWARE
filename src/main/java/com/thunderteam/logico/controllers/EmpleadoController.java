@@ -108,7 +108,7 @@ public class EmpleadoController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Empleado> empleado = empleadoRepo.findById(ID);
 
-		if (empleado.isEmpty()){
+		if (!empleado.isPresent()){
 			response.put("found", "false");
 			response.put("message", "empleado no encontrado");
 			return ResponseEntity.badRequest().body(response);
@@ -162,7 +162,7 @@ public class EmpleadoController {
 
 
 
-		if (empleado.isEmpty()) {
+		if (!empleado.isPresent()) {
 			response.put("deleted", "false");
 			response.put("message", "empleado no encontrada");
 			return ResponseEntity.badRequest().body(response);
@@ -181,7 +181,7 @@ public class EmpleadoController {
 		Map<String, String> response = new HashMap<>();
 		Optional<Empleado> empleado = empleadoRepo.findByEmail(email);
 
-		if(empleado.isEmpty()){
+		if(!empleado.isPresent()){
 			response.put("found", "false");
 			response.put("authenticated","false");
 			response.put("message", "usuario no encontrado");

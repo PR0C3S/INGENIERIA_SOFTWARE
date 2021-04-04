@@ -25,7 +25,7 @@ public class TipoVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombreTipo(nombreTipo);
 
-        if (tipo.isEmpty()){
+        if (!tipo.isPresent()){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
@@ -51,7 +51,7 @@ public class TipoVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Tipo_Vehiculo> tipo = tipoRepo.findTipo_VehiculoByNombreTipo(nombreTipo);
 
-        if(tipo.isEmpty()){
+        if(!tipo.isPresent()){
             response.put("deleted", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
