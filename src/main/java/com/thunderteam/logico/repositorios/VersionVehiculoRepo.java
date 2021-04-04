@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface VersionVehiculoRepo extends JpaRepository<Version_Vehiculo, Integer> {
 
-    Optional<Version_Vehiculo> findByNombreVersion(String nombreVersion);
-    List<Version_Vehiculo> findAllByModeloVehiculo(Modelo_Vehiculo modelo);
+    Version_Vehiculo findByNombreVersion(String nombreVersion);
+    List<Version_Vehiculo> findAllByModeloVehiculo_NombreModelo(String modelo);
 }
