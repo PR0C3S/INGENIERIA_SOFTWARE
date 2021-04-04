@@ -26,7 +26,7 @@ public class Contrato {
     private int ID_Contrato;
 
     @Column(nullable = false)
-    private Date fecha = new Date();
+        private Date fecha = new Date();
 
     @Column(nullable = false)
     private Date plazo_Pago;

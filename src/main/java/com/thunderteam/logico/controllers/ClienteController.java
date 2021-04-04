@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ClienteController {
 
 	@Autowired
@@ -43,32 +44,9 @@ public class ClienteController {
 
 
 	@PostMapping("/save")
-	public ResponseEntity postCliente(@RequestParam String email,
-									   @RequestParam String nombre_Completo,
-									  @RequestParam String fecha_Nacimiento,
-									   @RequestParam String telefono, @RequestParam String cedula,
-									   @RequestParam String celular, @RequestParam String sexo){
-
-		Date date1= null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		Cliente nuevoCliente = new Cliente();
-		nuevoCliente.setFecha_Nacimiento(date1);
-		nuevoCliente.setEmail(email);
-		nuevoCliente.setNombreCompleto(nombre_Completo);
-		nuevoCliente.setTelefono(telefono);
-		nuevoCliente.setCedula(cedula);
-		nuevoCliente.setCelular(celular);
-		nuevoCliente.setSexo(EnumSexo.valueOf(sexo));
-		//nuevoCliente.setUbicacion(ubicacion);
-
-
-		clienteRepo.save(nuevoCliente);
-		return  ResponseEntity.ok().body(nuevoCliente);
+	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
+		Cliente obj = clienteRepo.save(cliente);
+		return new ResponseEntity<Cliente>(obj, HttpStatus.OK);
 	}
 
 	/* @PostMapping(value = "/save")
@@ -79,43 +57,21 @@ public class ClienteController {
 
 
 	@PutMapping("/edit")
-	public ResponseEntity putCliente(@RequestParam String email, @RequestParam int ID,
-									  @RequestParam String nombre_Completo,
-									  @RequestParam String fecha_Nacimiento,
-									  @RequestParam String telefono, @RequestParam String cedula,
-									  @RequestParam String celular, @RequestParam String sexo
 
 
-	){
+	public ResponseEntity putCliente(  @RequestParam int ID, @RequestBody Cliente clienteV)
+	{
 		Map<String, String> response = new HashMap<>();
-		Optional<Cliente> cliente = clienteRepo.findById(ID);
+		//Optional<Cliente> cliente = clienteRepo.findById(ClieteID);
 
-		if (!cliente.isPresent()){
+		if (clienteV == null){
 			response.put("found", "false");
 			response.put("message", "Cliente no encontrado");
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Date date1= null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		Cliente oldCliente = new Cliente();
-		oldCliente.setEmail(email);
-		oldCliente.setID_Cliente(ID);
-		oldCliente.setFecha_Nacimiento(date1);
-		oldCliente.setNombreCompleto(nombre_Completo);
-		oldCliente.setTelefono(telefono);
-		oldCliente.setCedula(cedula);
-		oldCliente.setCelular(celular);
-		oldCliente.setSexo(EnumSexo.valueOf(sexo));
-		//oldCliente.setUbicacion(ubicacion);
-
-		clienteRepo.save(oldCliente);
-		return  ResponseEntity.ok().body(oldCliente);
+		clienteRepo.save(clienteV);
+		return  ResponseEntity.ok().body(clienteV);
 	}
 
 	@DeleteMapping("/delete")
@@ -135,5 +91,5 @@ public class ClienteController {
 			return ResponseEntity.ok().body(response);
 		}
 	}
-	
+
 }
