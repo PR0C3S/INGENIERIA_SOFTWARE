@@ -8,6 +8,7 @@ import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class EmpleadoController {
 		return empleadoRepo.findById(ID);
 	}
 
-	@PostMapping("/empleado")
+	/*@PostMapping("/empleado")
 	public ResponseEntity postEmpleado(@RequestParam String email, @RequestParam String password,
 									   @RequestParam String tipo, @RequestParam String nombre_Completo,
 									   @RequestParam String telefono, @RequestParam String cedula,
@@ -92,6 +93,12 @@ public class EmpleadoController {
 		empleadoRepo.save(nuevoEmpleado);
 		return  ResponseEntity.ok().body(nuevoEmpleado);
 
+	}*/
+
+	@PostMapping("/save")
+	public ResponseEntity<Empleado> save(@RequestBody Empleado empleado) {
+		Empleado obj = empleadoRepo.save(empleado);
+		return new ResponseEntity<Empleado>(obj, HttpStatus.OK);
 	}
 
 	@PutMapping("/empleado")
@@ -146,7 +153,7 @@ public class EmpleadoController {
 		oldEmpleado.setCedula(cedula);
 		oldEmpleado.setCelular(celular);
 		oldEmpleado.setSexo(EnumSexo.valueOf(sexo));
-		oldEmpleado.setActivo(EnumSiNo.valueOf(activo));
+		oldEmpleado.setEstado(EnumEstadoEmpleado.valueOf(activo));
 		oldEmpleado.setUbicacion(ubicacion);
 		oldEmpleado.setID_Empleado(ID);
 
