@@ -65,7 +65,7 @@ public class Version_Vehiculo {
     private Modelo_Vehiculo modeloVehiculo;
 
     //relacion con Vehiculo
-    @OneToMany(mappedBy = "version_vehiculo")
+    @OneToMany(mappedBy = "versionVehiculo")
     @JsonIgnore
     private List<Vehiculo> vehiculo;
 
