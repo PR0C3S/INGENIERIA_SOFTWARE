@@ -41,7 +41,7 @@ public class Vehiculo {
     //relacion con version vehiculo
     @ManyToOne
     @JoinColumn(name = "ID_Version", nullable = false)
-    private Version_Vehiculo version_vehiculo;
+    private Version_Vehiculo versionVehiculo;
 
 	/*
 	 * @Id
