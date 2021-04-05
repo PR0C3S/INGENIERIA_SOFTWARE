@@ -1,5 +1,8 @@
 package com.thunderteam.logico.controllers;
 import java.util.*;
+
+import javax.persistence.EntityNotFoundException;
+
 import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.ClienteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +118,23 @@ public class ClienteController {
 	 */
 	
 	@PutMapping(path="/edit")
-	public ResponseEntity<Cliente> updateUser(@Validated @RequestBody Cliente cliente) {
-		Cliente obj = clienteRepo.save(cliente);
-	    return new ResponseEntity<Cliente>(obj, HttpStatus.OK);
+	public ResponseEntity<Cliente> updateCliente(@Validated @RequestBody Cliente cliente) throws EntityNotFoundException {
+		System.out.println(cliente.getID_Cliente());
+		Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado para este id :: " + cliente.getID_Cliente()));
+		//Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).get();
+		//Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).orElse(new Cliente());
+		clienteDB.setNombreCompleto(cliente.getNombreCompleto());
+		clienteDB.setTelefono(cliente.getTelefono());
+		clienteDB.setEmail(cliente.getEmail());
+		clienteDB.setCelular(cliente.getCelular());
+		clienteDB.setCedula(cliente.getCedula());
+		clienteDB.setSexo(cliente.getSexo());
+		clienteDB.setFecha_Nacimiento(cliente.getFecha_Nacimiento());
+		
+		final Cliente updatedCliente = clienteRepo.save(cliente);
+		return ResponseEntity.ok(updatedCliente);
 	}
+	
 	@DeleteMapping("/delete")
 	public ResponseEntity deleteCliente(@RequestParam int ID) {
 
