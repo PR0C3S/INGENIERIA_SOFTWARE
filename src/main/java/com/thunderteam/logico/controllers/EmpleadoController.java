@@ -95,6 +95,11 @@ public class EmpleadoController {
 
 	}*/
 
+	@GetMapping("/count")
+	public Long countEmpleadosActivos(){
+		return empleadoRepo.countByEstado(EnumEstadoEmpleado.Activado);
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<Empleado> save(@RequestBody Empleado empleado) {
 		Empleado obj = empleadoRepo.save(empleado);

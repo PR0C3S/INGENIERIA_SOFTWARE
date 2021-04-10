@@ -1,5 +1,6 @@
 package com.thunderteam.logico.services;
 
+import com.thunderteam.logico.entities.EnumEstadoVehiculo;
 import com.thunderteam.logico.entities.Vehiculo;
 import com.thunderteam.logico.repositorios.MarcaVehiculoRepo;
 import com.thunderteam.logico.repositorios.ModeloVehiculoRepo;
@@ -42,6 +43,11 @@ public class VehiculoService {
     public Vehiculo getVehiculo(int ID){
         Optional<Vehiculo> vehiculo = vehiculoRepo.findById(ID);
         return vehiculo.orElse(null);
+    }
+
+    //contar vehiculos disponibles
+    public Long countVehiculosDisponibles(){
+        return vehiculoRepo.countByEstado(EnumEstadoVehiculo.Disponible);
     }
 
     // Guardar un vehiculo

@@ -5,6 +5,7 @@ import javax.persistence.EntityNotFoundException;
 
 import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.ClienteRepo;
+import com.thunderteam.logico.repositorios.UbicacionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class ClienteController {
 
 	@Autowired
 	ClienteRepo clienteRepo;
+
+	@Autowired
+	UbicacionRepo ubicacionRepo;
 
 	@GetMapping("/")
 	public List<Cliente> getAllClientes(){
@@ -40,6 +44,15 @@ public class ClienteController {
 		return clienteRepo.findById(ID);
 	}
 
+	@GetMapping("/count")
+	public Long countCliente(){
+		return clienteRepo.count();
+	}
+
+	@GetMapping("/countUbicacion")
+	public Long countUbicacion(){
+		return ubicacionRepo.count();
+	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
