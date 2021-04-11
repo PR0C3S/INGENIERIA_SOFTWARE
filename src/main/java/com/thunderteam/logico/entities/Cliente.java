@@ -1,19 +1,23 @@
 package com.thunderteam.logico.entities;
 
-    import lombok.Data;
-    import javax.persistence.*;
-    import java.util.Date;
-    import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Date;
+import java.util.List;
 
 
-@Data
 @Entity
+@Getter
+@Setter
 @Table(name = "Clientes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
-
-    public enum Sexo{
-        M, F
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,13 +46,22 @@ public class Cliente {
     private Date fecha_Nacimiento;
 
     //relacion con ubicacion
-    @ManyToOne
-    @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="ID_Ubicacion", referencedColumnName="ID_Ubicacion")
+    @JsonManagedReference
     private Ubicacion ubicacion;
 
 
     //relacion con contrato
     @OneToMany(mappedBy = "cliente")
-    private List<Contrato> contrato;
+    private List<Contrato> contratos;
+    
+    
+	/*
+	 * public Ubicacion getUbicacion(){ return ubicacion; }
+	 * 
+	 * 
+	 * public List<Contrato> getContratos(){ return contratos; }
+	 */
 
 }

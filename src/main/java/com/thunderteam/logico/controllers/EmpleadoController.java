@@ -52,22 +52,22 @@ public class EmpleadoController {
 	){
 
 
-		Municipio newMunicipio = municipioRepo.findByNombre(municipio);
-		System.out.println(newMunicipio.getNombre());
-		Optional<Sector> newSector = sectorRepo.findByNombre(sector);
+		Municipio newMunicipio = municipioRepo.findByNombreMunicipio(municipio);
+		System.out.println(newMunicipio.getNombreMunicipio());
+		Optional<Sector> newSector = sectorRepo.findByNombreSector(sector);
 		Ubicacion ubicacion = new Ubicacion();
 
 
 
 		if(newSector.isPresent()){
-			ubicacion.setApartamento(apartamento);
+//			ubicacion.setApartamento(apartamento);
 			ubicacion.setCasa(casa);
 			ubicacion.setSector(newSector.get());
 			ubicacion.setCalle(calle);
 		}else{
 			Sector newSector1 = new Sector(sector, newMunicipio);
 			sectorRepo.save(newSector1);
-			ubicacion.setApartamento(apartamento);
+//			ubicacion.setApartamento(apartamento);
 			ubicacion.setCasa(casa);
 			ubicacion.setSector(newSector1);
 			ubicacion.setCalle(calle);
@@ -115,21 +115,21 @@ public class EmpleadoController {
 		}
 
 		sector = sector.toLowerCase();
-		Municipio newMunicipio = municipioRepo.findByNombre(municipio);
-		Optional<Sector> newSector = sectorRepo.findByNombre(sector);
+		Municipio newMunicipio = municipioRepo.findByNombreMunicipio(municipio);
+		Optional<Sector> newSector = sectorRepo.findByNombreSector(sector);
 		Ubicacion ubicacion = new Ubicacion();
 
 
 
 		if(newSector.isPresent()){
-			ubicacion.setApartamento(apartamento);
+//			ubicacion.setApartamento(apartamento);
 			ubicacion.setCasa(casa);
 			ubicacion.setSector(newSector.get());
 			ubicacion.setCalle(calle);
 		}else{
 			Sector newSector1 = new Sector(sector, newMunicipio);
 			sectorRepo.save(newSector1);
-			ubicacion.setApartamento(apartamento);
+//			ubicacion.setApartamento(apartamento);
 			ubicacion.setCasa(casa);
 			ubicacion.setSector(newSector1);
 			ubicacion.setCalle(calle);

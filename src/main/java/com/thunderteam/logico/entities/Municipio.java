@@ -1,31 +1,37 @@
 package com.thunderteam.logico.entities;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
-import java.util.List;
 
-@Data
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Municipios")
-
 public class Municipio {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Municipio;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String nombreMunicipio;
 
-    @Column(nullable = false)
-    private String nombre;
+//    @Column(nullable = false)
+//    private String nombre;
 
 
     //relacion con provincia
     @ManyToOne
-    @JoinColumn(name = "ID_Provincia", nullable = false)
-    private Provincia provincia;
+    @JoinColumn(name = "nombreProvincia", nullable = false)
+    private Provincia nombreProvincia;
 
     //relacion con sector
-    @OneToMany(mappedBy = "municipio")
-    @JsonIgnore
-    private List<Sector> sector;
+	/*
+	 * @OneToMany(mappedBy = "municipio")
+	 * 
+	 * @JsonIgnore private List<Sector> sector;
+	 */
 
 
 

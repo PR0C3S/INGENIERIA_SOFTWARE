@@ -1,10 +1,10 @@
 package com.thunderteam.logico.controllers;
 import java.util.*;
-
 import javax.persistence.EntityNotFoundException;
-
 import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.ClienteRepo;
+import com.thunderteam.logico.repositorios.SectorRepo;
+import com.thunderteam.logico.repositorios.UbicacionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -18,17 +18,17 @@ public class ClienteController {
 
 	@Autowired
 	ClienteRepo clienteRepo;
+	
+	@Autowired
+	UbicacionRepo ubicacionRepo;
+	
+	@Autowired
+	SectorRepo sectorRepo;
 
 	@GetMapping("/")
 	public List<Cliente> getAllClientes(){
 		return clienteRepo.findAll();
 	} 
-
-	/* @GetMapping("/")
-	public String getAllClientes(Model model){
-		model.addAttribute("listaEmpleados", clienteRepo.findAll());
-		return "Cliente";
-	} */
 
 	@GetMapping("/nombre")
 	public List<Cliente> getClienteLikeName(@RequestParam String nombre){
@@ -41,9 +41,18 @@ public class ClienteController {
 	}
 
 
-	@PostMapping("/save")
-	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
-		Cliente obj = clienteRepo.save(cliente);
+	@PostMapping(value ="/save", consumes={"application/json;charset=utf-8"})
+	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveBody json) {
+		Cliente persona = json.getCliente();
+		Ubicacion location = json.getUbicacion();
+		String nSector = json.getSector();
+		
+		Sector sector = sectorRepo.findById(nSector).orElseThrow(() -> new EntityNotFoundException("sector no encontrado para este id:: " + nSector));
+		location.setSector(sector);
+		location.setCliente(persona);
+		persona.setUbicacion(location);
+		//ubicacionRepo.save(location);
+		Cliente obj = clienteRepo.save(persona);
 		return new ResponseEntity<Cliente>(obj, HttpStatus.OK);
 	}
 
@@ -52,86 +61,33 @@ public class ClienteController {
 		return new ResponseEntity<Persona>(obj, HttpStatus.OK);
 	}
 
-	public ResponseEntity postCliente(@RequestParam(value = "nombreCompleto", required = false, defaultValue = "defaultNombreCompleto") String nombreCompleto,
-									   @RequestParam(value = "cedula", required = false, defaultValue = "defaultCedula") String cedula,
-									   @RequestParam(value = "email", required = false, defaultValue = "defaultEmail") String email,
-									   @RequestParam(value = "fecha_Nacimiento", required = false, defaultValue = "defaultFecha_Nacimiento") String fecha_Nacimiento,
-									   @RequestParam(value = "sexo", required = false) String sexo,
-									   @RequestParam(value = "celular", required = false, defaultValue = "defaultCelular") String celular,
-									   @RequestParam(value = "telefono", required = false, defaultValue = "defaultTelefono") String telefono)
-	{
-		Date date1= null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		Cliente nuevoCliente = new Cliente();
-		nuevoCliente.setFecha_Nacimiento(date1);
-		nuevoCliente.setEmail(email);
-		nuevoCliente.setNombreCompleto(nombreCompleto);
-		nuevoCliente.setTelefono(telefono);
-		nuevoCliente.setCedula(cedula);
-		nuevoCliente.setCelular(celular);
-		nuevoCliente.setSexo(EnumSexo.valueOf(sexo));
-		//nuevoCliente.setUbicacion(ubicacion);
-
-		clienteRepo.save(nuevoCliente);
-		return  ResponseEntity.ok().body(nuevoCliente);
+	
 	}*/
 	
-	/*
-	 * @PutMapping("/edit") public ResponseEntity putCliente(@RequestParam int ID,
-	 * 
-	 * @RequestParam String nombre_Completo,
-	 * 
-	 * @RequestParam String cedula,
-	 * 
-	 * @RequestParam String email,
-	 * 
-	 * @RequestParam String fecha_Nacimiento,
-	 * 
-	 * @RequestParam String sexo,
-	 * 
-	 * @RequestParam String celular,
-	 * 
-	 * @RequestParam String telefono ) { Map<String, String> response = new
-	 * HashMap<>(); Optional<Cliente> cliente = clienteRepo.findById(ID);
-	 * 
-	 * if (!cliente.isPresent()){ response.put("found", "false");
-	 * response.put("message", "Cliente no encontrado"); return
-	 * ResponseEntity.badRequest().body(response); }
-	 * 
-	 * Date date1= null; try { date1 = new
-	 * SimpleDateFormat("dd/MM/yyyy").parse(fecha_Nacimiento); } catch
-	 * (ParseException e) { e.printStackTrace(); }
-	 * 
-	 * Cliente oldCliente = new Cliente(); oldCliente.setEmail(email);
-	 * oldCliente.setID_Cliente(ID); oldCliente.setFecha_Nacimiento(date1);
-	 * oldCliente.setNombreCompleto(nombre_Completo);
-	 * oldCliente.setTelefono(telefono); oldCliente.setCedula(cedula);
-	 * oldCliente.setCelular(celular); oldCliente.setSexo(EnumSexo.valueOf(sexo));
-	 * //oldCliente.setUbicacion(ubicacion);
-	 * 
-	 * clienteRepo.save(oldCliente); return ResponseEntity.ok().body(oldCliente); }
-	 */
 	
-	@PutMapping(path="/edit")
-	public ResponseEntity<Cliente> updateCliente(@Validated @RequestBody Cliente cliente) throws EntityNotFoundException {
-		System.out.println(cliente.getID_Cliente());
-		Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado para este id :: " + cliente.getID_Cliente()));
-		//Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).get();
-		//Cliente clienteDB = clienteRepo.findById(cliente.getID_Cliente()).orElse(new Cliente());
-		clienteDB.setNombreCompleto(cliente.getNombreCompleto());
-		clienteDB.setTelefono(cliente.getTelefono());
-		clienteDB.setEmail(cliente.getEmail());
-		clienteDB.setCelular(cliente.getCelular());
-		clienteDB.setCedula(cliente.getCedula());
-		clienteDB.setSexo(cliente.getSexo());
-		clienteDB.setFecha_Nacimiento(cliente.getFecha_Nacimiento());
+	@PutMapping(value="/edit", consumes={"application/json;charset=utf-8"})
+	public ResponseEntity<Cliente> updateCliente(@RequestBody ClienteSaveBody json){
+		Cliente persona = json.getCliente();
+		Ubicacion location= json.getUbicacion();
+		String nSector = json.getSector();
+		System.out.printf("%d",persona.getID_Cliente());
+		Cliente clienteDB = clienteRepo.findById(persona.getID_Cliente()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado para este id :: " + persona.getID_Cliente()));
+		clienteDB.setNombreCompleto(persona.getNombreCompleto());
+		clienteDB.setTelefono(persona.getTelefono());
+		clienteDB.setEmail(persona.getEmail());
+		clienteDB.setCelular(persona.getCelular());
+		clienteDB.setCedula(persona.getCedula());
+		clienteDB.setSexo(persona.getSexo());
+		clienteDB.setFecha_Nacimiento(persona.getFecha_Nacimiento());
 		
-		final Cliente updatedCliente = clienteRepo.save(cliente);
+		Ubicacion ubicacionDB = ubicacionRepo.findById(clienteDB.getUbicacion().getID_Ubicacion()).orElseThrow(() -> new EntityNotFoundException("Ubicacion no encontrada"));
+		ubicacionDB.setCalle(location.getCalle());
+		ubicacionDB.setCasa(location.getCasa());
+		Sector sector = sectorRepo.findById(nSector).orElseThrow(() -> new EntityNotFoundException("sector no encontrado para este id:: " + nSector));
+		ubicacionDB.setSector(sector);
+		clienteDB.setUbicacion(ubicacionDB);
+		
+		final Cliente updatedCliente = clienteRepo.save(clienteDB);
 		return ResponseEntity.ok(updatedCliente);
 	}
 	

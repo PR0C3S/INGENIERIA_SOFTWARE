@@ -9,12 +9,6 @@ import java.util.Date;
 @Table(name = "Vehiculos")
 public class Vehiculo {
 
-	/*
-	 * public enum Condicion{ Nuevo, Usado }
-	 */
-	/*
-	 * public enum Estado{ Disponible, Agotado, Espera }
-	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,9 +1,14 @@
 package com.thunderteam.logico.repositorios;
 
 import com.thunderteam.logico.entities.Provincia;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProvinciaRepo extends JpaRepository<Provincia, Integer> {
+public interface ProvinciaRepo extends JpaRepository<Provincia, String> {
 
-    boolean existsByNombre(String nombreProvincia);
+    boolean existsByNombreProvincia(String nombreProvincia);
+
+	Optional<Provincia> findByNombreProvincia(String nombreProvincia);
 }
