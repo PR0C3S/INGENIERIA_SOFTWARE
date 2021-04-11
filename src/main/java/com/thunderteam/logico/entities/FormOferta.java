@@ -9,15 +9,15 @@ import java.util.List;
 
 public class FormOferta extends Formulario{
 
-    public enum Financiado{
-        Si, No
-    }
+	/*
+	 * public enum Financiado{ Si, No }
+	 */
 
     @Column(nullable = false)
     private float monto_Ofrecido;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Si','No')")
-    private Financiado financiado;
+    //@Column(columnDefinition = "ENUM('Si','No')")
+    private EnumSiNo financiado;
 
 }

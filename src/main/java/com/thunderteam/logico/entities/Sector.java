@@ -1,26 +1,37 @@
 package com.thunderteam.logico.entities;
-import lombok.Data;
-import javax.persistence.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import javax.persistence.*;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "Sectores")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sector {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Sector;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String nombreSector;
 
-    @Column(nullable = false)
-    private String nombre;
+//    @Column(nullable = false)
+//    private String nombre;
 
     //relacion con municipio
     @ManyToOne
-    @JoinColumn(name = "ID_Municipio", nullable = false)
-    private Municipio municipio;
+    @JoinColumn(name = "nombreMunicipio", nullable = false)
+    private Municipio nombreMunicipio;
 
     //relacion con ubicacion
-    @OneToMany(mappedBy = "sector")
-    private List<Ubicacion> ubicacion;
-
+	/*
+	 * @OneToMany(mappedBy = "sector")
+	 * 
+	 * @JsonIgnore private List<Ubicacion> ubicacion;
+	 * 
+	 * public Sector(String nombre, Municipio municipio) { this.nombreSector =
+	 * nombre; this.municipio = municipio; }
+	 */
 }

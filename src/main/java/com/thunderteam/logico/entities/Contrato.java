@@ -1,32 +1,28 @@
 package com.thunderteam.logico.entities;
 
-import lombok.Data;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "Contratos")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Contrato {
-
-    public enum tipoContrato{
-            Intercambio, Venta
-    }
-
-    public enum Estado{
-        Activo, Culminado
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID_Contrato;
 
     @Column(nullable = false)
-    private Date fecha;
+        private Date fecha = new Date();
 
     @Column(nullable = false)
     private Date plazo_Pago;
@@ -35,13 +31,13 @@ public class Contrato {
     private Date fecha_Entrega;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Activo','Culminado')")
-    private Estado status; //Activo, Culminado
+//    @Column(columnDefinition = "ENUM('Activo','Culminado')")
+    private EnumEstadoContrato status; //Activo, Culminado
 
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Intercambio','Venta')")
-    private tipoContrato tipo; // Intercambio, Venta
+    //@Column(columnDefinition = "ENUM('Intercambio','Venta')")
+    private EnumTipoContrato tipo; // Intercambio, Venta
 
     @Column(nullable = false)
     private float precio_Vehiculo;

@@ -32,47 +32,50 @@ public class ModeloVehiculoService {
 
     // Buscar todos los modelos de una marca
     public ResponseEntity getAllByMarca(String marca){
+        Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (!marcaRepo.existsByNombreMarca(marca)){
+        if (!marcaInstance.isPresent()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
         }
 
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByMarcavehiculo_NombreMarca(marca);
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByMarcavehiculo_NombreMarca(marcaInstance.get().getNombreMarca());
         return ResponseEntity.ok().body(listaModelos);
     }
 
     // Buscar todos los modelos de un tipo de vehiculo
     public ResponseEntity getAllByTipo(String tipo){
+        Optional<Tipo_Vehiculo> tipoInstance = tipoRepo.findTipo_VehiculoByNombreTipo(tipo);
         Map<String, String> response = new HashMap<>();
 
-        if (!tipoRepo.existsByNombreTipo(tipo)){
+        if (!tipoInstance.isPresent()){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
         }
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByTipovehiculo_NombreTipo(tipo);
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByTipovehiculo_NombreTipo(tipoInstance.get().getNombreTipo());
         return ResponseEntity.ok().body(listaModelos);
     }
 
     // Buscar todos los modelos de un tipo de vehiculo y marca
     public ResponseEntity getAllByTipoAndMarca(String tipo, String marca){
+        Optional<Tipo_Vehiculo> tipoInstance = tipoRepo.findTipo_VehiculoByNombreTipo(tipo);
+        Optional<Marca_Vehiculo> marcaInstance = marcaRepo.findByNombreMarca(marca);
         Map<String, String> response = new HashMap<>();
 
-        if (!tipoRepo.existsByNombreTipo(tipo)){
+        if (!tipoInstance.isPresent()){
             response.put("found", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
-        }
-        if (!marcaRepo.existsByNombreMarca(marca)){
+        }else if (!marcaInstance.isPresent()){
             response.put("found", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
         }
         List<Modelo_Vehiculo> listaModelos = modeloRepo
-                .findAllByMarcavehiculo_NombreMarcaAndTipovehiculo_NombreTipo(marca,tipo);
+                .findAllByMarcavehiculo_NombreMarcaAndTipovehiculo_NombreTipo(marcaInstance.get().getNombreMarca(), tipoInstance.get().getNombreTipo());
 
         return ResponseEntity.ok().body(listaModelos);
     }
@@ -80,10 +83,9 @@ public class ModeloVehiculoService {
     // Buscar un modelo por su nombre
     public ResponseEntity getModelo(String nombreModelo){
         Map<String, String> response = new HashMap<>();
-        Optional<Modelo_Vehiculo> modelo = modeloRepo
-                .findByNombreModelo(nombreModelo);
+        Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
 
-        if(modelo.isEmpty()){
+        if(!modelo.isPresent()){
             response.put("found", "false");
             response.put("message", "Modelo no encontrado");
             return ResponseEntity.badRequest().body(response);
@@ -103,11 +105,11 @@ public class ModeloVehiculoService {
             response.put("Created", "false");
             response.put("message", "Este modelo ya existe");
             return ResponseEntity.badRequest().body(response);
-        }else if (tipoInstance.isEmpty()){
+        }else if (!tipoInstance.isPresent()){
             response.put("Created", "false");
             response.put("message", "Tipo no encontrado");
             return ResponseEntity.badRequest().body(response);
-        }else if (marcaInstance.isEmpty()){
+        }else if (!marcaInstance.isPresent()){
             response.put("Created", "false");
             response.put("message", "Marca no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -126,13 +128,13 @@ public class ModeloVehiculoService {
         Map<String, String> response = new HashMap<>();
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
 
-        if(modelo.isEmpty()){
-            response.put("delete", "false");
+        if(!modelo.isPresent()){
+            response.put("found", "false");
             response.put("message", "Modelo no encontrado");
             return ResponseEntity.badRequest().body(response);
         }else{
             modeloRepo.delete(modelo.get());
-            response.put("delete", "true");
+            response.put("found", "true");
             response.put("message", "Modelo \""+nombreModelo+"\" encontrado");
             return ResponseEntity.ok().body(response);
         }

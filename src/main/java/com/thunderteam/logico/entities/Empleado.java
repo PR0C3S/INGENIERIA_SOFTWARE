@@ -2,7 +2,6 @@ package com.thunderteam.logico.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -14,13 +13,17 @@ import java.util.List;
 @Table
 public class Empleado {
 
-    public enum Sexo{
-        M, F
-    }
+	/*
+	 * public enum YesNo{ Si, No }
+	 */
 
-    public enum Tipo{
-        Gerente, Vendedor, Secretaria
-    }
+	/*
+	 * public enum Sexo{ M, F }
+	 */
+
+	/*
+	 * public enum Tipo{ Gerente, Vendedor, Secretaria }
+	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,20 +36,11 @@ public class Empleado {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Gerente','Vendedor','Secretaria')")
-    private Tipo tipo; //Gerente, Vendedor o Secretaria
+//    @Column(columnDefinition = "ENUM('Gerente','Vendedor','Secretaria')")
+    private EnumTipoEmpleado tipo; //Gerente, Vendedor o Secretaria
 
     @Column(nullable = false)
-    private String primer_Nombre;
-
-    @Column
-    private String segundo_Nombre;
-
-    @Column(nullable = false)
-    private String primer_Apellido;
-
-    @Column
-    private String segundo_Apellido;
+    private String nombreCompleto;
 
     @Column
     private String telefono;
@@ -58,17 +52,20 @@ public class Empleado {
     private String celular;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('M','F')")
-    private Sexo sexo;
+	/* @Column(columnDefinition = "ENUM('M','F')") */
+    private EnumSexo sexo;
+
+    @Enumerated(EnumType.STRING)
+    //@Column(columnDefinition = "ENUM('Activado','Desahabilitado')")
+    private EnumEstadoEmpleado estado;
 
     @Column(nullable = true)
-    private Date fecha_Creacion;
-
+    private Date fecha_Creacion= new Date();
 
     //relacion con ubicacion
-/*    @ManyToOne
+    @ManyToOne
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
-    private Ubicacion ubicacion;*/
+    private Ubicacion ubicacion;
 
 
     //relacion con Cuenta Bancaria

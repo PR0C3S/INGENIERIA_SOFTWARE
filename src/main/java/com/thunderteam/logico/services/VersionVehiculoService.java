@@ -1,7 +1,6 @@
 package com.thunderteam.logico.services;
 
-import com.thunderteam.logico.entities.Modelo_Vehiculo;
-import com.thunderteam.logico.entities.Version_Vehiculo;
+import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.MarcaVehiculoRepo;
 import com.thunderteam.logico.repositorios.ModeloVehiculoRepo;
 import com.thunderteam.logico.repositorios.TipoVehiculoRepo;
@@ -50,7 +49,7 @@ public class VersionVehiculoService {
         Optional<Version_Vehiculo> version = versionRepo
                 .findByNombreVersionAndModeloVehiculo_NombreModelo(nombreVersion, nombreModelo);
 
-        if(version.isEmpty()){
+        if(!version.isPresent()){
             response.put("found", "false");
             response.put("message", "version no encontrada");
             return ResponseEntity.badRequest().body(response);
@@ -78,8 +77,8 @@ public class VersionVehiculoService {
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
         Version_Vehiculo version = new Version_Vehiculo(
                 nombreVersion, colorExterior, colorInterior, puertas,
-                pasajeros, motor, Combustible.valueOf(combustibleStr),
-                Transmision.valueOf(transmisionStr), Traccion.valueOf(traccionStr),
+                pasajeros, motor, EnumCombustible.valueOf(combustibleStr),
+                EnumTransmision.valueOf(transmisionStr), EnumTraccion.valueOf(traccionStr),
                 modelo.get()
         );
         versionRepo.save(version);

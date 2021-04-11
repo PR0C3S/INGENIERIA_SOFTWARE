@@ -1,7 +1,7 @@
 package com.thunderteam.logico.entities;
 import lombok.Data;
 import javax.persistence.*;
-import java.util.List;
+
 
 @Data
 @Entity

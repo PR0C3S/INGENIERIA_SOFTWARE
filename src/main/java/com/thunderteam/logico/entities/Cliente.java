@@ -1,38 +1,36 @@
 package com.thunderteam.logico.entities;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
 import java.util.List;
 
 
-@Data
 @Entity
+@Getter
+@Setter
 @Table(name = "Clientes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
-
-    public enum Sexo{
-        M, F
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID_Cliente;
 
     @Column(nullable = false)
-    private String primer_Nombre;
-
-    @Column
-    private String segundo_Nombre;
-
-    @Column(nullable = false)
-    private String primer_Apellido;
-
-    @Column
-    private String segundo_Apellido;
+    private String nombreCompleto;
 
     @Column
     private String telefono;
+
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String celular;
@@ -41,20 +39,29 @@ public class Cliente {
     private String cedula;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('M','F')")
-    private Sexo sexo;
+	/* @Column(columnDefinition = "ENUM('M','F')") */
+    private EnumSexo sexo;
 
     @Column(nullable = false)
     private Date fecha_Nacimiento;
 
     //relacion con ubicacion
-    @ManyToOne
-    @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="ID_Ubicacion", referencedColumnName="ID_Ubicacion")
+    @JsonManagedReference
     private Ubicacion ubicacion;
 
 
     //relacion con contrato
     @OneToMany(mappedBy = "cliente")
-    private List<Contrato> contrato;
+    private List<Contrato> contratos;
+    
+    
+	/*
+	 * public Ubicacion getUbicacion(){ return ubicacion; }
+	 * 
+	 * 
+	 * public List<Contrato> getContratos(){ return contratos; }
+	 */
 
 }

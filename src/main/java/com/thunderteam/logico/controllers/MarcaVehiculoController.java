@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/marcas")
 public class MarcaVehiculoController {
@@ -21,8 +22,8 @@ public class MarcaVehiculoController {
     }
     @GetMapping("/marca")
     public ResponseEntity getMarca(@RequestParam String nombreMarca){ return marcaService.getMarca(nombreMarca); }
-    @PostMapping("/marca")
+    @PostMapping("/save")
     public ResponseEntity postMarca(@RequestParam String nombreMarca){ return marcaService.postMarca(nombreMarca); }
-    @DeleteMapping("/marca")
+    @DeleteMapping("/delete")
     public ResponseEntity deleteMarca(@RequestParam String nombreMarca){ return marcaService.eliminarMarca(nombreMarca); }
 }
