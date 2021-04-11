@@ -56,8 +56,8 @@ public class Empleado {
     private EnumSexo sexo;
 
     @Enumerated(EnumType.STRING)
-    //@Column(columnDefinition = "ENUM('Si','No')")
-    private EnumSiNo activo;
+    //@Column(columnDefinition = "ENUM('Activado','Desahabilitado')")
+    private EnumEstadoEmpleado estado;
 
     @Column(nullable = true)
     private Date fecha_Creacion= new Date();

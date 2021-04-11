@@ -25,6 +25,9 @@ public class ClienteController {
 	@Autowired
 	SectorRepo sectorRepo;
 
+	@Autowired
+	UbicacionRepo ubicacionRepo;
+
 	@GetMapping("/")
 	public List<Cliente> getAllClientes(){
 		return clienteRepo.findAll();
@@ -40,6 +43,15 @@ public class ClienteController {
 		return clienteRepo.findById(ID);
 	}
 
+	@GetMapping("/count")
+	public Long countCliente(){
+		return clienteRepo.count();
+	}
+
+	@GetMapping("/countUbicacion")
+	public Long countUbicacion(){
+		return ubicacionRepo.count();
+	}
 
 	@PostMapping(value ="/save", consumes={"application/json;charset=utf-8"})
 	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveBody json) {

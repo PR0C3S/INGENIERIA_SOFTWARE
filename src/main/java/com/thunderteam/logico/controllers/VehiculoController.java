@@ -43,6 +43,11 @@ public class VehiculoController {
 		return vehiculoService.getVehiculo(id);
 	}
 
+	@GetMapping("/count")
+	public Long countVehiculos(){
+		return vehiculoService.countVehiculosDisponibles();
+	}
+
 	@PostMapping("/vehiculo")
 	public ResponseEntity<Vehiculo> postVehiculo(@RequestBody Vehiculo vehiculo){
 		return vehiculoService.postVehiculo(vehiculo);

@@ -1,7 +1,8 @@
 package com.thunderteam.logico.entities;
 
 public enum EnumEstadoVehiculo {
-	DISPONIBLE,AGOTADO,ESPERA;
+	Disponible,Agotado,Espera
+
 	/*
 	 * DISPONIBLE("Disponible"), AGOTADO("Agotado"), ESPERA("Espera");
 	 * 
