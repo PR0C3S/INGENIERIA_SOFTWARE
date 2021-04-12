@@ -1,28 +1,19 @@
 package com.thunderteam.logico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "Versiones_de_vehiculos")
 @RequiredArgsConstructor
 public class Version_Vehiculo {
-
-	/*
-	 * public enum Traccion{ Front_Wheel_Drive, Rear_Wheel_Drive, All_Wheel_Drive,
-	 * Four_Wheel_Drive, Four_By_Four }
-	 */
-
-	/*
-	 * public enum Combustible { GASOLINA, GLP, GASOIL, GAS_NATURAL, ELECTRICIDAD }
-	 * 
-	 * public enum Transmision{
-	 * Manual,Automatizadas_Secuenciales,CVT,Automatizada_Doble_Embrague }
-	 */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,12 +21,6 @@ public class Version_Vehiculo {
 
     @Column(nullable = false)
     private String nombreVersion;
-
-    @Column(nullable = false)
-    private String color_Exterior;
-
-    @Column(nullable = false)
-    private String color_Interior;
 
     @Column(nullable = false)
     private int puertas;
@@ -69,18 +54,4 @@ public class Version_Vehiculo {
     @JsonIgnore
     private List<Vehiculo> vehiculo;
 
-    public Version_Vehiculo(String nombreVersion, String color_Exterior, String color_Interior,
-                            int puertas, int pasajeros, String motor, EnumCombustible combustible,
-                            EnumTransmision transmision, EnumTraccion traccion, Modelo_Vehiculo modeloVehiculo) {
-        this.nombreVersion = nombreVersion;
-        this.color_Exterior = color_Exterior;
-        this.color_Interior = color_Interior;
-        this.puertas = puertas;
-        this.pasajeros = pasajeros;
-        this.motor = motor;
-        this.combustible = combustible;
-        this.transmision = transmision;
-        this.traccion = traccion;
-        this.modeloVehiculo = modeloVehiculo;
-    }
 }

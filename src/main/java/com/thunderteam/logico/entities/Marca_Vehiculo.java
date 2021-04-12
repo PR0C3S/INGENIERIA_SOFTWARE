@@ -14,14 +14,14 @@ import java.util.List;
 public class Marca_Vehiculo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Marca;
-
-    @Column(nullable = false)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //private int ID_Marca;
     private String nombreMarca;
 
+    //@Column(nullable = false)
+
     //relacion con modelo_Vehiculo
-    @OneToMany(mappedBy = "marcavehiculo")
+    @OneToMany(mappedBy = "marcaVehiculo")
     @JsonIgnore
     private List<Modelo_Vehiculo> modelo_vehiculo;
 

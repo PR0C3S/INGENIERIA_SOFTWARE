@@ -30,13 +30,20 @@ public class VersionVehiculoController {
         return versionService.getVersion(nombreVersion,nombreModelo);
     }
 
-    @PostMapping("/version")
-    public ResponseEntity postVersion(@RequestParam String nombreVersion, @RequestParam String colorExterior, @RequestParam String colorInterior,
-                                      @RequestParam int puertas, @RequestParam int pasajeros, @RequestParam String motor, @RequestParam String traccionStr,
-                                      @RequestParam String combustibleStr, @RequestParam String transmisionStr, @RequestParam String nombreModelo){
-        return versionService.postVersion( nombreVersion, colorExterior, colorInterior, puertas,  pasajeros,  motor,  traccionStr,
-                combustibleStr, transmisionStr, nombreModelo);
-    }
+	/*
+	 * @PostMapping("/version") public ResponseEntity postVersion(@RequestParam
+	 * String nombreVersion, @RequestParam String colorExterior, @RequestParam
+	 * String colorInterior,
+	 * 
+	 * @RequestParam int puertas, @RequestParam int pasajeros, @RequestParam String
+	 * motor, @RequestParam String traccionStr,
+	 * 
+	 * @RequestParam String combustibleStr, @RequestParam String
+	 * transmisionStr, @RequestParam String nombreModelo){ return
+	 * versionService.postVersion( nombreVersion, colorExterior, colorInterior,
+	 * puertas, pasajeros, motor, traccionStr, combustibleStr, transmisionStr,
+	 * nombreModelo); }
+	 */
 
     @DeleteMapping("/version")
     public ResponseEntity deleteVersion(String nombreVersion, String nombreModelo){

@@ -25,9 +25,6 @@ public class ClienteController {
 	@Autowired
 	SectorRepo sectorRepo;
 
-	@Autowired
-	UbicacionRepo ubicacionRepo;
-
 	@GetMapping("/")
 	public List<Cliente> getAllClientes(){
 		return clienteRepo.findAll();

@@ -3,12 +3,10 @@ package com.thunderteam.logico.services;
 import com.thunderteam.logico.entities.*;
 import com.thunderteam.logico.repositorios.MarcaVehiculoRepo;
 import com.thunderteam.logico.repositorios.ModeloVehiculoRepo;
-import com.thunderteam.logico.repositorios.TipoVehiculoRepo;
 import com.thunderteam.logico.repositorios.VersionVehiculoRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,7 @@ public class VersionVehiculoService {
     private final VersionVehiculoRepo versionRepo;
     private final ModeloVehiculoRepo modeloRepo;
     private final MarcaVehiculoRepo marcaRepo;
-    private final TipoVehiculoRepo tipoRepo;
+    //private final TipoVehiculoRepo tipoRepo;
 
     // Buscar todas las versiones
     public List<Version_Vehiculo> getAll(){
@@ -58,7 +56,7 @@ public class VersionVehiculoService {
     }
 
     // Guardar una version
-    public ResponseEntity postVersion(String nombreVersion, String colorExterior, String colorInterior,
+    public ResponseEntity postVersion(String nombreVersion,
                                       int puertas, int pasajeros, String motor, String traccionStr,
                                       String combustibleStr, String transmisionStr, String nombreModelo){
         Map<String, String> response = new HashMap<>();
@@ -75,12 +73,16 @@ public class VersionVehiculoService {
             return ResponseEntity.badRequest().body(response);
         }
         Optional<Modelo_Vehiculo> modelo = modeloRepo.findByNombreModelo(nombreModelo);
-        Version_Vehiculo version = new Version_Vehiculo(
-                nombreVersion, colorExterior, colorInterior, puertas,
-                pasajeros, motor, EnumCombustible.valueOf(combustibleStr),
-                EnumTransmision.valueOf(transmisionStr), EnumTraccion.valueOf(traccionStr),
-                modelo.get()
-        );
+        
+        Version_Vehiculo version = new Version_Vehiculo();
+        version.setNombreVersion(nombreVersion);
+        version.setPuertas(puertas);
+        version.setPasajeros(pasajeros);
+        version.setMotor(motor);
+        version.setCombustible(EnumCombustible.valueOf(combustibleStr));
+        version.setTransmision(EnumTransmision.valueOf(transmisionStr));
+        version.setTraccion(EnumTraccion.valueOf(traccionStr));
+        version.setModeloVehiculo(modelo.get());
         versionRepo.save(version);
         return ResponseEntity.ok().body(version);
     }

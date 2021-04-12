@@ -10,6 +10,7 @@ import com.thunderteam.logico.services.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/vehiculos")
@@ -42,19 +43,30 @@ public class VehiculoController {
 	public Vehiculo getVehiculo(@PathVariable int id){
 		return vehiculoService.getVehiculo(id);
 	}
+	
+	@GetMapping("/vehiculo/{tipo}")
+	public List<Vehiculo> getAllByTipo(String tipo){
+		return vehiculoService.getAllByTipo(tipo);
+	}
 
 	@GetMapping("/count")
 	public Long countVehiculos(){
 		return vehiculoService.countVehiculosDisponibles();
 	}
 
-	@PostMapping("/vehiculo")
-	public ResponseEntity<Vehiculo> postVehiculo(@RequestBody Vehiculo vehiculo){
-		return vehiculoService.postVehiculo(vehiculo);
+	@PostMapping("/save")
+	public ResponseEntity<Vehiculo> postVehiculo(@RequestBody VehiculoSaveBody json){
+		Vehiculo vehiculo = json.getVehiculo();
+		Version_Vehiculo version = json.getVersion();
+		String modelo = json.getModelo();
+		MultipartFile file = json.getFile();
+		return vehiculoService.postVehiculo(vehiculo, version, modelo, file);
 	}
 
-	@DeleteMapping("/vehiculo")
+	@DeleteMapping("/delete")
 	public ResponseEntity<Vehiculo> deleteVehiculo(@RequestParam int ID){
 		return vehiculoService.deleteVehiculo(ID);
 	}
+	
+	//put
 }
