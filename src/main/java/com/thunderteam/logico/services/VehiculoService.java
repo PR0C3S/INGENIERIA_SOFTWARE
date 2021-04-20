@@ -27,10 +27,10 @@ import javax.persistence.EntityNotFoundException;
 @AllArgsConstructor
 public class VehiculoService {
 
-    private final MarcaVehiculoRepo marcaRepo;
+    //private final MarcaVehiculoRepo marcaRepo;
     private final ModeloVehiculoRepo modeloRepo;
     private final VehiculoRepo vehiculoRepo;
-    private final VersionVehiculoRepo versionRepo;
+    //private final VersionVehiculoRepo versionRepo;
 
     // Buscar iodos los vehiculos
     public List<Vehiculo> getAll(){return vehiculoRepo.findAll();}
@@ -51,9 +51,10 @@ public class VehiculoService {
     }
     
     //Buscar todos los vehiculos por Tipo
-    public List<Vehiculo> getAllByTipo(String tipo){
-    	return vehiculoRepo.findAllByTipo(tipo);
-    }
+	/*
+	 * public List<Vehiculo> getAllByTipo(String tipo){ return
+	 * vehiculoRepo.findAllByTipo(tipo); }
+	 */
 
     // Buscar un vehiculo por ID
     public Vehiculo getVehiculo(int ID){
@@ -68,7 +69,6 @@ public class VehiculoService {
 
     // Guardar un vehiculo
     public ResponseEntity<Vehiculo> postVehiculo(Vehiculo vehiculo, Version_Vehiculo vv, String modelo, MultipartFile file){
-    	
     	
     	Vehiculo v = new Vehiculo();
     	
@@ -88,7 +88,7 @@ public class VehiculoService {
     	v.setPrecio(vehiculo.getPrecio());
     	v.setColor_Interior(vehiculo.getColor_Interior());
     	v.setEstado(vehiculo.getEstado());
-    	v.setTipo(vehiculo.getTipo());
+    	//v.setTipo(vehiculo.getTipo());
     	v.setDescripcion(vehiculo.getDescripcion());
     	v.setEstado(vehiculo.getEstado());
     	

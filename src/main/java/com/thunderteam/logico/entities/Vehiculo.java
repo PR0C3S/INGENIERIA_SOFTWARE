@@ -49,8 +49,6 @@ public class Vehiculo {
     //@Column(columnDefinition = "ENUM('Disponible','Agotado','Espera')")
     private EnumEstadoVehiculo estado; //Agotado/Disponible//En Espera
     
-    @Enumerated(EnumType.STRING)
-    private EnumTipoVehiculo tipo;
 
     @Column(nullable = false)
     private String descripcion;

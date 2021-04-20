@@ -44,10 +44,10 @@ public class VehiculoController {
 		return vehiculoService.getVehiculo(id);
 	}
 	
-	@GetMapping("/vehiculo/{tipo}")
-	public List<Vehiculo> getAllByTipo(String tipo){
-		return vehiculoService.getAllByTipo(tipo);
-	}
+	/*
+	 * @GetMapping("/vehiculo/{tipo}") public List<Vehiculo> getAllByTipo(String
+	 * tipo){ return vehiculoService.getAllByTipo(tipo); }
+	 */
 
 	@GetMapping("/count")
 	public Long countVehiculos(){

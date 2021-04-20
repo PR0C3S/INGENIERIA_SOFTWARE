@@ -26,8 +26,8 @@ public class VersionVehiculoController {
     }
 
     @GetMapping("/version")
-    public ResponseEntity getVersion(@RequestParam String nombreVersion, @RequestParam String nombreModelo){
-        return versionService.getVersion(nombreVersion,nombreModelo);
+    public ResponseEntity getVersion(@RequestParam String version){
+        return versionService.getVersion(version);
     }
 
 	/*

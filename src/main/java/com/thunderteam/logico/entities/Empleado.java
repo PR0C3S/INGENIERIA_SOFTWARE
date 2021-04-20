@@ -13,18 +13,6 @@ import java.util.List;
 @Table
 public class Empleado {
 
-	/*
-	 * public enum YesNo{ Si, No }
-	 */
-
-	/*
-	 * public enum Sexo{ M, F }
-	 */
-
-	/*
-	 * public enum Tipo{ Gerente, Vendedor, Secretaria }
-	 */
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID_Empleado;

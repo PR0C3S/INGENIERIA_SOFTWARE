@@ -17,6 +17,7 @@ public class ModeloVehiculoController {
 
     @GetMapping("/")
     public List<Modelo_Vehiculo> getAllModelos(){return modeloService.getAll();}
+    
     @GetMapping("/marca")
     public ResponseEntity getAllByMarca(@RequestParam String marca){
         return  modeloService.getAllByMarca(marca);

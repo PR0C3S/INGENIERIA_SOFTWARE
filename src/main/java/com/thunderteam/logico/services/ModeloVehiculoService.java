@@ -37,7 +37,7 @@ public class ModeloVehiculoService {
             return ResponseEntity.badRequest().body(response);
         }
 
-        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByMarcaVehiculo_NombreMarca(marcaInstance.get().getNombreMarca());
+        List<Modelo_Vehiculo> listaModelos = modeloRepo.findAllByMarcaVehiculoNombreMarca(marcaInstance.get().getNombreMarca());
         return ResponseEntity.ok().body(listaModelos);
     }
 

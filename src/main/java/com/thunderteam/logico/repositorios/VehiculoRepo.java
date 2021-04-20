@@ -17,7 +17,7 @@ public interface VehiculoRepo extends JpaRepository<Vehiculo,Integer> {
     List<Vehiculo> findAllByAno(int ano);
     List<Vehiculo> findAllByVersionVehiculo_ModeloVehiculo_MarcaVehiculo_NombreMarcaAndVersionVehiculo_ModeloVehiculo_NombreModelo(String nombreMarca, String nombreModelo);
     Long countByEstado(EnumEstadoVehiculo estadoVehiculo);
-    List<Vehiculo> findAllByTipo(String tipo);
+    //List<Vehiculo> findAllByTipo(String tipo);
     
-    List<Vehiculo> findAllByTipoAndVersionVehiculo_ModeloVehiculo_MarcaVehiculo_NombreMarca(String tipo, String Marca);
+    //List<Vehiculo> findAllByTipoAndVersionVehiculo_ModeloVehiculo_MarcaVehiculo_NombreMarca(String tipo, String Marca);
 }

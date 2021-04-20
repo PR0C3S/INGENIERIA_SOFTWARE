@@ -42,10 +42,9 @@ public class VersionVehiculoService {
     }
 
     // Buscar una version por su nombre y modelo
-    public ResponseEntity getVersion(String nombreVersion, String nombreModelo){
+    public ResponseEntity getVersion(String nombreVersion){
         Map<String, String> response = new HashMap<>();
-        Optional<Version_Vehiculo> version = versionRepo
-                .findByNombreVersionAndModeloVehiculo_NombreModelo(nombreVersion, nombreModelo);
+        Optional<Version_Vehiculo> version = versionRepo.findById(nombreVersion);
 
         if(!version.isPresent()){
             response.put("found", "false");
