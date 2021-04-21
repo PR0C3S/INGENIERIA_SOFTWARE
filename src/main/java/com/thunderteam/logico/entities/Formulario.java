@@ -1,35 +1,40 @@
 package com.thunderteam.logico.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
+@Getter
+@Setter
 public class Formulario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ID_Form;
+    protected int ID_Form;
 
     @Column(nullable = false)
-    private String nombre;
+    protected String nombre;
 
     @Column(nullable = false)
-    private String correo;
+    protected String correo;
 
     @Column(nullable = false)
-    private String celular;
+    protected String celular;
 
     @Column(nullable = false)
-    private Date fecha = new Date();
+    protected Date fecha = new Date();
 
     @Column(nullable = false)
-    private String comentario;
+    protected String comentario;
 
 
     //relacion con vehiculo unidireccional
     @ManyToOne
     @JoinColumn(name="vehiculo", referencedColumnName="ID_Vehiculo")
-    private Vehiculo vehiculo;
+    protected Vehiculo vehiculo;
 
 
 }
