@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Versiones_de_vehiculos")
+@Table
 @RequiredArgsConstructor
 public class Version_Vehiculo {
 

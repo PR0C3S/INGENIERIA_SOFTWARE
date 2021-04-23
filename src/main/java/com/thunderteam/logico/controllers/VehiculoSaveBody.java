@@ -11,6 +11,6 @@ import lombok.Data;
 public class VehiculoSaveBody{
 	Vehiculo vehiculo;
 	Version_Vehiculo version;
-	String modelo;
+	//String modelo;
 	MultipartFile file;
 }

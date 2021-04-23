@@ -52,20 +52,16 @@ public class Vehiculo {
 
     @Column(nullable = false)
     private String descripcion;
-
-    //relacion con fotos
-	/*
-	 * @OneToMany(mappedBy = "vehiculo") private List<Imagen> imagen;
-	 */
     
     //relacion con version vehiculo
     @ManyToOne
-    @JoinColumn(name = "ID_Version", nullable = false)
+    @JoinColumn(name = "nombreVersion", nullable = true)
     private Version_Vehiculo versionVehiculo;
     
     //@Lob
-    //@Column(columnDefinition = "MEDIUMBLOB")
-    //private String imagen;
+    @Column(nullable=true)
+    private String imagen;
+    
 	/*
 	 * //relacion con form_intercambio
 	 * 
@@ -79,10 +75,5 @@ public class Vehiculo {
     
     @Column(nullable = false)
     private Date fecha = new Date();
-
-    
-
-
-
 
 }
