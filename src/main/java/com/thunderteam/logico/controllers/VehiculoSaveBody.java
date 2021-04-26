@@ -12,5 +12,5 @@ public class VehiculoSaveBody{
 	Vehiculo vehiculo;
 	Version_Vehiculo version;
 	//String modelo;
-	MultipartFile file;
+	//MultipartFile file;
 }

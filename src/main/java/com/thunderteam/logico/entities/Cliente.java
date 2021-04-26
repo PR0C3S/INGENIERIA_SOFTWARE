@@ -48,7 +48,7 @@ public class Cliente {
     //relacion con ubicacion
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="ID_Ubicacion", referencedColumnName="ID_Ubicacion")
-    @JsonManagedReference
+    @JsonManagedReference("cl")
     private Ubicacion ubicacion;
 
 

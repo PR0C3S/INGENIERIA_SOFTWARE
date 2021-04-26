@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Modelos_de_vehiculos")
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 public class Modelo_Vehiculo {
@@ -23,11 +23,11 @@ public class Modelo_Vehiculo {
 
     //relacion con marca_Vehiculo
     @ManyToOne
-    @JoinColumn(name = "ID_Marca", nullable = false)
+    @JoinColumn(name = "nombreMarca", nullable = false)
     private Marca_Vehiculo marcaVehiculo;
 
     //relacion con version_vehiculo
-    @OneToMany(mappedBy = "modeloVehiculo")
+    @OneToMany(mappedBy = "nombreVersion")
     @JsonIgnore
     private List<Version_Vehiculo> versionVehiculo;
 

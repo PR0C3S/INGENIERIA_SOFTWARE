@@ -26,7 +26,7 @@ public class Vehiculo {
     @Column(nullable = false)
     private int kilometraje;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String accesorios;
     
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Vehiculo {
     private String color_Interior;
     
     @Column(nullable = false)
-    private float precio;
+    private int precio;
     
     @Enumerated(EnumType.STRING)
     //@Column(columnDefinition = "ENUM('Disponible','Agotado','Espera')")
@@ -59,8 +59,8 @@ public class Vehiculo {
     private Version_Vehiculo versionVehiculo;
     
     //@Lob
-    @Column(nullable=true)
-    private String imagen;
+    //@Column(nullable=true)
+    //private String imagen;
     
 	/*
 	 * //relacion con form_intercambio

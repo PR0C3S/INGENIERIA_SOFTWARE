@@ -71,16 +71,16 @@ public class VehiculoService {
     }
 
     // Guardar un vehiculo
-    public ResponseEntity<Vehiculo> postVehiculo(Vehiculo vehiculo, Version_Vehiculo vv, MultipartFile file) throws IOException{
+    public ResponseEntity<Vehiculo> postVehiculo(Vehiculo vehiculo, Version_Vehiculo vv) throws IOException{
     	
     	Vehiculo v = new Vehiculo();
     	
-    	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
-		if(fileName.contains("..")){
-			System.out.println("archivo no valido");
-		}
-		vehiculo.setImagen(fileName);
+		/*
+		 * String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		 * 
+		 * if(fileName.contains("..")){ System.out.println("archivo no valido"); }
+		 * vehiculo.setImagen(fileName);
+		 */
 		
 		/*
 		 * try{ //v.setImagen(Base64.getEncoder().encodeToString(file.getBytes()));
@@ -99,34 +99,29 @@ public class VehiculoService {
 		 * v.setDescripcion(vehiculo.getDescripcion());
 		 * v.setEstado(vehiculo.getEstado());
 		 */
-    	
+    	System.out.printf(vv.getNombreVersion());
     	Version_Vehiculo versionDB = versionRepo.findById(vv.getNombreVersion()).orElseThrow(() -> new EntityNotFoundException("version no encontrada"));
 
     	//vv.setModeloVehiculo(versionDB);
     	
     	vehiculo.setVersionVehiculo(versionDB); //v
     	//vv.setVehiculo(v);
-    	Vehiculo obj = vehiculoRepo.save(v);
+    	Vehiculo obj = vehiculoRepo.save(vehiculo);
     	
-    	String uploadDir = "./imagenes/" + obj.getID_Vehiculo();
-    	
-    	Path uploadPath = Paths.get(uploadDir);
-    	
-    	if (!Files.exists(uploadPath)) {
-    		try {
-				Files.createDirectories(uploadPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
-    	
-    	try(InputStream inputStream = file.getInputStream()){
-    	Path filePath = uploadPath.resolve(fileName);
-    	Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-    	}catch(IOException e){
-    		throw new IOException("No se puedo guardar");
-    	}
+		/*
+		 * String uploadDir = "./imagenes/" + obj.getID_Vehiculo();
+		 * 
+		 * Path uploadPath = Paths.get(uploadDir);
+		 * 
+		 * if (!Files.exists(uploadPath)) { try { Files.createDirectories(uploadPath); }
+		 * catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } }
+		 * 
+		 * try(InputStream inputStream = file.getInputStream()){ Path filePath =
+		 * uploadPath.resolve(fileName); Files.copy(inputStream, filePath,
+		 * StandardCopyOption.REPLACE_EXISTING); }catch(IOException e){ throw new
+		 * IOException("No se puedo guardar"); }
+		 */
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 

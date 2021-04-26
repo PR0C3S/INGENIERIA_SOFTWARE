@@ -3,6 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +56,7 @@ public class Empleado {
     //relacion con ubicacion
     @OneToOne
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
+    @JsonManagedReference("emp")
     private Ubicacion ubicacion;
 
 

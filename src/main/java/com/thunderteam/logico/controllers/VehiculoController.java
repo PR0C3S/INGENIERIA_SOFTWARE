@@ -9,8 +9,6 @@ import com.thunderteam.logico.repositorios.ModeloVehiculoRepo;
 import com.thunderteam.logico.repositorios.VehiculoRepo;
 
 import com.thunderteam.logico.services.VehiculoService;
-import com.thunderteam.logico.services.VehiculoServicePrueba;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +25,6 @@ public class VehiculoController {
 	@Autowired
 	ModeloVehiculoRepo modeloVehiculoRepo;
 	
-	@Autowired
-	VehiculoServicePrueba vehiculoServicePrueba;
 
 	@GetMapping("/")
 	public List<Vehiculo> getAll(){
@@ -50,8 +46,8 @@ public class VehiculoController {
 		return vehiculoService.getAllByYear(year);
 	}
 
-	@GetMapping("/vehiculo{id}")
-	public Vehiculo getVehiculo(@PathVariable int id){
+	@GetMapping("/id")
+	public Vehiculo getVehiculo(@RequestParam int id){
 		return vehiculoService.getVehiculo(id);
 	}
 	
@@ -66,15 +62,17 @@ public class VehiculoController {
 	}
 
 	
-	 @PostMapping(value = "/save", consumes = { "multipart/form-data" }) //MediaType.MULTIPART_FORM_DATA_VALUE   o   {"multipart/mixed"}
-	 public ResponseEntity<Vehiculo> postVehiculo(@ModelAttribute("cmd")VehiculoSaveBody json) throws IOException{ 
-		 	Vehiculo vehiculo =
-		 	json.getVehiculo(); 
-		 	Version_Vehiculo version = json.getVersion(); 
+	 @PostMapping(value = "/save", consumes={"application/json;charset=utf-8"}) //MediaType.MULTIPART_FORM_DATA_VALUE   o   {"multipart/mixed"} , consumes = { "multipart/form-data" }
+	 public ResponseEntity<Vehiculo> postVehiculo(@RequestBody VehiculoSaveBody json) throws IOException{ 
+		 	Vehiculo vehiculo = json.getVehiculo(); 
+		 	Version_Vehiculo version = json.getVersion();
+		 	System.out.printf(version.getNombreVersion());
+		 	System.out.printf("%d", vehiculo.getPrecio());
+		 	
 		 	//String modelo = json.getModelo();
-		 	MultipartFile file = json.getFile();
-		 	System.out.printf(file.getResource().getFilename()); 
-		 	return vehiculoService.postVehiculo(vehiculo, version, file);
+		 	//MultipartFile file = json.getFile();
+		 	//System.out.printf(file.getResource().getFilename()); 
+		 	return vehiculoService.postVehiculo(vehiculo, version);
 	 }
 	 
 	

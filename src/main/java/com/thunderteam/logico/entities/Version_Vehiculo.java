@@ -50,11 +50,11 @@ public class Version_Vehiculo {
 
     //relacion con Modelo_vehiculo
     @ManyToOne
-    @JoinColumn(name = "ID_Modelo", nullable = false)
+    @JoinColumn(name = "nombreModelo", nullable = false)
     private Modelo_Vehiculo modeloVehiculo;
 
     //relacion con Vehiculo
-    @OneToMany(mappedBy = "versionVehiculo")
+    @OneToMany(mappedBy = "ID_Vehiculo")
     @JsonIgnore
     private List<Vehiculo> vehiculo;
 

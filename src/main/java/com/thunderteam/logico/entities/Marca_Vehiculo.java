@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Marcas_de_vehiculos")
+@Table
 @RequiredArgsConstructor
 public class Marca_Vehiculo {
 
@@ -21,7 +21,7 @@ public class Marca_Vehiculo {
     //@Column(nullable = false)
 
     //relacion con modelo_Vehiculo
-    @OneToMany(mappedBy = "marcaVehiculo")
+    @OneToMany(mappedBy = "nombreModelo")
     @JsonIgnore
     private List<Modelo_Vehiculo> modelo_vehiculo;
 

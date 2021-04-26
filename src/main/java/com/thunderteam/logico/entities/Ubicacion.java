@@ -32,15 +32,17 @@ public class Ubicacion {
     private Sector sector;
     
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ubicacion")
-    @JoinColumn(name = "id_cliente", nullable = true)
-    @JsonBackReference
+    @JoinColumn(name = "ID_Cliente", nullable = true)
+    @JsonBackReference("cl")
     private Cliente cliente;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ubicacion")
-    @JoinColumn(name = "id_empleado", nullable = true)
-    @JsonBackReference
-    private Empleado empleado;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ubicacion")
+	@JoinColumn(name = "ID_Empleado", nullable = true)
+	@JsonBackReference("emp") 
+	private Empleado empleado;
+	 
     
 	/*
 	 * public Cliente getCliente() { return cliente; }
