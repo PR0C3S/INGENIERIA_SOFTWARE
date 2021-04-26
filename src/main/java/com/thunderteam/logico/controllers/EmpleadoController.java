@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {
@@ -40,150 +42,71 @@ public class EmpleadoController {
 		return empleadoRepo.findById(ID);
 	}
 
-	/*@PostMapping("/empleado")
-	public ResponseEntity postEmpleado(@RequestParam String email, @RequestParam String password,
-									   @RequestParam String tipo, @RequestParam String nombre_Completo,
-									   @RequestParam String telefono, @RequestParam String cedula,
-									   @RequestParam String celular, @RequestParam String sexo,
-									   @RequestParam String calle, @RequestParam String casa,
-									   @RequestParam String sector,@RequestParam String municipio,
-									   @RequestParam String provincia, @RequestParam String apartamento,
-									   @RequestParam String activo
-
-	){
-
-
-		Municipio newMunicipio = municipioRepo.findByNombreMunicipio(municipio);
-		System.out.println(newMunicipio.getNombreMunicipio());
-		Optional<Sector> newSector = sectorRepo.findByNombreSector(sector);
-		Ubicacion ubicacion = new Ubicacion();
-
-
-
-		if(newSector.isPresent()){
-//			ubicacion.setApartamento(apartamento);
-			ubicacion.setCasa(casa);
-			ubicacion.setSector(newSector.get());
-			ubicacion.setCalle(calle);
-		}else{
-			Sector newSector1 = new Sector(sector, newMunicipio);
-			sectorRepo.save(newSector1);
-//			ubicacion.setApartamento(apartamento);
-			ubicacion.setCasa(casa);
-			ubicacion.setSector(newSector1);
-			ubicacion.setCalle(calle);
-		}
-		ubicacionRepo.save(ubicacion);
-
-
-
-
-		Empleado nuevoEmpleado = new Empleado();
-		nuevoEmpleado.setEmail(email);
-		nuevoEmpleado.setPassword(password);
-		nuevoEmpleado.setTipo(EnumTipoEmpleado.valueOf(tipo));
-		nuevoEmpleado.setNombreCompleto(nombre_Completo);
-		nuevoEmpleado.setTelefono(telefono);
-		nuevoEmpleado.setCedula(cedula);
-		nuevoEmpleado.setCelular(celular);
-		nuevoEmpleado.setSexo(EnumSexo.valueOf(sexo));
-		nuevoEmpleado.setActivo(EnumSiNo.valueOf(activo));
-		nuevoEmpleado.setUbicacion(ubicacion);
-
-		empleadoRepo.save(nuevoEmpleado);
-		return  ResponseEntity.ok().body(nuevoEmpleado);
-
-	}*/
 
 	@GetMapping("/count")
 	public Long countEmpleadosActivos(){
 		return empleadoRepo.countByEstado(EnumEstadoEmpleado.Activado);
 	}
 
-	@PostMapping("/save")
-	public ResponseEntity<Empleado> save(@RequestBody Empleado empleado) {
-		Empleado obj = empleadoRepo.save(empleado);
+
+	@PostMapping(value ="/save", consumes={"application/json;charset=utf-8"})
+	public ResponseEntity<Empleado> save(@RequestBody EmpleadoSaveBody json) {
+		Empleado persona = json.getEmpleado();
+		Ubicacion location = json.getUbicacion();
+		String nSector = json.getSector();
+
+		Sector sector = sectorRepo.findById(nSector).orElseThrow(() -> new EntityNotFoundException("sector no encontrado para este id:: " + nSector));
+		location.setSector(sector);
+		location.setEmpleado(persona);
+		persona.setUbicacion(location);
+		//ubicacionRepo.save(location);
+		Empleado obj = empleadoRepo.save(persona);
 		return new ResponseEntity<Empleado>(obj, HttpStatus.OK);
 	}
 
-	@PutMapping("/empleado")
-	public ResponseEntity putEmpleado(@RequestParam int ID, @RequestParam String email, @RequestParam String password,
-									  @RequestParam String tipo, @RequestParam String nombre_Completo,
-									  @RequestParam String telefono, @RequestParam String cedula,
-									  @RequestParam String celular, @RequestParam String sexo,
-									  @RequestParam String calle, @RequestParam String casa,
-									  @RequestParam String sector,@RequestParam String municipio,
-									  @RequestParam String provincia, @RequestParam String apartamento,
-									  @RequestParam String activo
 
-	){
-		Map<String, String> response = new HashMap<>();
-		Optional<Empleado> empleado = empleadoRepo.findById(ID);
+	@PutMapping(value="/edit", consumes={"application/json;charset=utf-8"})
+	public ResponseEntity<Empleado> updatedEmpleado(@RequestBody EmpleadoSaveBody json){
+		Empleado persona = json.getEmpleado();
+		Ubicacion location= json.getUbicacion();
+		String nSector = json.getSector();
+		System.out.printf("%d",persona.getID_Empleado());
+		Empleado empleadoDB = empleadoRepo.findById(persona.getID_Empleado()).orElseThrow(() -> new EntityNotFoundException("Empleado no encontrado para este id :: " + persona.getID_Empleado()));
+		empleadoDB.setNombreCompleto(persona.getNombreCompleto());
+		empleadoDB.setTelefono(persona.getTelefono());
+		empleadoDB.setEmail(persona.getEmail());
+		empleadoDB.setCelular(persona.getCelular());
+		empleadoDB.setCedula(persona.getCedula());
+		empleadoDB.setSexo(persona.getSexo());
+		empleadoDB.setPassword(persona.getPassword());
+		empleadoDB.setEstado(persona.getEstado());
+		empleadoDB.setTipo(persona.getTipo());
 
-		if (!empleado.isPresent()){
-			response.put("found", "false");
-			response.put("message", "empleado no encontrado");
-			return ResponseEntity.badRequest().body(response);
-		}
+		Ubicacion ubicacionDB = ubicacionRepo.findById(empleadoDB.getUbicacion().getID_Ubicacion()).orElseThrow(() -> new EntityNotFoundException("Ubicacion no encontrada"));
+		ubicacionDB.setCalle(location.getCalle());
+		ubicacionDB.setCasa(location.getCasa());
+		Sector sector = sectorRepo.findById(nSector).orElseThrow(() -> new EntityNotFoundException("sector no encontrado para este id:: " + nSector));
+		ubicacionDB.setSector(sector);
+		empleadoDB.setUbicacion(ubicacionDB);
 
-		sector = sector.toLowerCase();
-		Municipio newMunicipio = municipioRepo.findByNombreMunicipio(municipio);
-		Optional<Sector> newSector = sectorRepo.findByNombreSector(sector);
-		Ubicacion ubicacion = new Ubicacion();
-
-
-
-		if(newSector.isPresent()){
-//			ubicacion.setApartamento(apartamento);
-			ubicacion.setCasa(casa);
-			ubicacion.setSector(newSector.get());
-			ubicacion.setCalle(calle);
-		}else{
-			Sector newSector1 = new Sector(sector, newMunicipio);
-			sectorRepo.save(newSector1);
-//			ubicacion.setApartamento(apartamento);
-			ubicacion.setCasa(casa);
-			ubicacion.setSector(newSector1);
-			ubicacion.setCalle(calle);
-		}
-		ubicacionRepo.save(ubicacion);
-
-
-		Empleado oldEmpleado = new Empleado();
-		oldEmpleado.setEmail(email);
-		oldEmpleado.setPassword(password);
-		oldEmpleado.setTipo(EnumTipoEmpleado.valueOf(tipo));
-		oldEmpleado.setNombreCompleto(nombre_Completo);
-		oldEmpleado.setTelefono(telefono);
-		oldEmpleado.setCedula(cedula);
-		oldEmpleado.setCelular(celular);
-		oldEmpleado.setSexo(EnumSexo.valueOf(sexo));
-		oldEmpleado.setEstado(EnumEstadoEmpleado.valueOf(activo));
-		oldEmpleado.setUbicacion(ubicacion);
-		oldEmpleado.setID_Empleado(ID);
-
-		empleadoRepo.save(oldEmpleado);
-		return  ResponseEntity.ok().body(oldEmpleado);
+		final Empleado updatedEmpleado = empleadoRepo.save(empleadoDB);
+		return ResponseEntity.ok(updatedEmpleado);
 	}
 
-	@DeleteMapping("/empleado")
+	@DeleteMapping("/delete")
 	public ResponseEntity deleteEmpleado(@RequestParam int ID) {
 
 		Map<String, String> response = new HashMap<>();
 		Optional<Empleado> empleado = empleadoRepo.findById(ID);
 
-
-
 		if (!empleado.isPresent()) {
 			response.put("deleted", "false");
-			response.put("message", "empleado no encontrada");
+			response.put("message", "Empleado no encontrada");
 			return ResponseEntity.badRequest().body(response);
 		} else {
-
 			empleadoRepo.delete(empleado.get());
 			response.put("deleted", "true");
-			response.put("message", "empleado " + ID + " eliminado");
-			ubicacionRepo.delete(empleado.get().getUbicacion());
+			response.put("message", "Empleado " + ID + " eliminado");
 			return ResponseEntity.ok().body(response);
 		}
 	}

@@ -35,7 +35,12 @@ public class Ubicacion {
     @JoinColumn(name = "id_cliente", nullable = true)
     @JsonBackReference
     private Cliente cliente;
-    
+
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ubicacion")
+    @JoinColumn(name = "id_empleado", nullable = true)
+    @JsonBackReference
+    private Empleado empleado;
     
 	/*
 	 * public Cliente getCliente() { return cliente; }

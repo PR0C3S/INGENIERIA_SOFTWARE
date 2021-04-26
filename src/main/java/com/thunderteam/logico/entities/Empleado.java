@@ -51,14 +51,14 @@ public class Empleado {
     private Date fecha_Creacion= new Date();
 
     //relacion con ubicacion
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
     private Ubicacion ubicacion;
 
 
-    //relacion con Cuenta Bancaria
+    /*//relacion con Cuenta Bancaria
     @OneToOne(mappedBy = "empleado")
-    private CuentaBancaria cuentaBancaria;
+    private CuentaBancaria cuentaBancaria;*/
 
     //relacion con contrato
     @OneToMany(mappedBy = "empleado")
