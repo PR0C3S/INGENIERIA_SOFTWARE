@@ -20,7 +20,7 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID_Empleado;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
 
     @Column(nullable = false)
