@@ -21,10 +21,6 @@ public class EmpleadoController {
 	@Autowired
 	EmpleadoRepo empleadoRepo;
 	@Autowired
-	ProvinciaRepo provinciaRepo;
-	@Autowired
-	MunicipioRepo municipioRepo;
-	@Autowired
 	SectorRepo sectorRepo;
 	@Autowired
 	UbicacionRepo ubicacionRepo;
@@ -95,7 +91,7 @@ public class EmpleadoController {
 
 	@DeleteMapping("/delete")
 	public ResponseEntity deleteEmpleado(@RequestParam int ID) {
-
+		System.out.println(ID);
 		Map<String, String> response = new HashMap<>();
 		Optional<Empleado> empleado = empleadoRepo.findById(ID);
 
