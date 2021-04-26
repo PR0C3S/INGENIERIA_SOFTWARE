@@ -54,7 +54,7 @@ public class Empleado {
     private Date fecha_Creacion= new Date();
 
     //relacion con ubicacion
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="ubicacion", referencedColumnName="ID_Ubicacion")
     @JsonManagedReference("emp")
     private Ubicacion ubicacion;

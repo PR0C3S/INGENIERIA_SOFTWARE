@@ -59,7 +59,7 @@ public class EmpleadoController {
 		location.setSector(sector);
 		location.setEmpleado(persona);
 		persona.setUbicacion(location);
-		ubicacionRepo.save(location);
+		//ubicacionRepo.save(location);
 		Empleado obj = empleadoRepo.save(persona);
 		return new ResponseEntity<Empleado>(obj, HttpStatus.OK);
 	}
