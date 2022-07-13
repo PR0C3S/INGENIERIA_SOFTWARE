@@ -71,7 +71,7 @@ public class VehiculoController {
 		 	
 		 	//String modelo = json.getModelo();
 		 	//MultipartFile file = json.getFile();
-		 	//System.out.printf(file.getResource().getFilename()); 
+		 	//System.out.printf(file.getResource().getFilename());
 		 	return vehiculoService.postVehiculo(vehiculo, version);
 	 }
 	 

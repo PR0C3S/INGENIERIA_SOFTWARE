@@ -16,12 +16,11 @@ import java.util.List;
 public class Version_Vehiculo {
 
     @Id
-    private String nombreVersion;
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    //private int ID_Version;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int ID_Version;
 
-    //@Column(nullable = false)
-    
+    @Column(nullable = false)
+    private String nombreVersion;
 
     @Column(nullable = false)
     private int puertas;
@@ -42,8 +41,8 @@ public class Version_Vehiculo {
 
     @Enumerated(EnumType.STRING)
     //@Column(columnDefinition = "ENUM('Front_Wheel_Drive','Rear_Wheel_Drive','All_Wheel_Drive','Four_Wheel_Drive','Four_By_Four')")
-    private EnumTraccion traccion; 
-    
+    private EnumTraccion traccion;
+
     @Enumerated(EnumType.STRING)
     private EnumTipoVehiculo tipo;
 

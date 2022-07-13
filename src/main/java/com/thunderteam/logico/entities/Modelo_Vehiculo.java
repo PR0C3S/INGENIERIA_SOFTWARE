@@ -27,7 +27,7 @@ public class Modelo_Vehiculo {
     private Marca_Vehiculo marcaVehiculo;
 
     //relacion con version_vehiculo
-    @OneToMany(mappedBy = "nombreVersion")
+    @OneToMany(mappedBy = "ID_Version")
     @JsonIgnore
     private List<Version_Vehiculo> versionVehiculo;
 

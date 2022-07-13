@@ -100,11 +100,10 @@ public class VehiculoService {
 		 * v.setEstado(vehiculo.getEstado());
 		 */
     	System.out.printf(vv.getNombreVersion());
-    	Version_Vehiculo versionDB = versionRepo.findById(vv.getNombreVersion()).orElseThrow(() -> new EntityNotFoundException("version no encontrada"));
-
+    	versionRepo.save(vv);
     	//vv.setModeloVehiculo(versionDB);
     	
-    	vehiculo.setVersionVehiculo(versionDB); //v
+    	vehiculo.setVersionVehiculo(vv); //v
     	//vv.setVehiculo(v);
     	Vehiculo obj = vehiculoRepo.save(vehiculo);
     	
