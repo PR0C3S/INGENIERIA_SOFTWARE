@@ -4,8 +4,6 @@ This is a RESTful API built with Java, Spring framework.
 * H2 / MSSQL database and connectivity / querying with JDBC and Spring Data JPA
 * Monolithic architecture
 
-This is a school project beware of possible bad design choices and <em>spaghetti</em>
-
 ### Design Diagrams
 
 Physical data model:
